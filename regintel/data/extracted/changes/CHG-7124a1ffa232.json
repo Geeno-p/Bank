@@ -1,0 +1,35 @@
+{
+  "id": "CHG-7124a1ffa232",
+  "doc_id": "RBI-KYC-MD",
+  "from_version": "v-demo",
+  "to_version": "v-amended",
+  "detected_at": "2026-10-08T08:19:01.697899Z",
+  "changes": [
+    {
+      "id": "CC-0c8b34f5f3fc",
+      "doc_id": "RBI-KYC-MD",
+      "old_clause_id": "CL-325df1d896c7",
+      "new_clause_id": "CL-a0a2bd16a078",
+      "change_type": "TIGHTENED",
+      "similarity": 0.968,
+      "changed_parameters": [
+        {
+          "name": "review frequency for high risk customers",
+          "old": "at least once in every two years",
+          "new": "at least once in every year"
+        }
+      ],
+      "summary": "The required review frequency for high-risk customers has been tightened from at least once every two years to at least once every year."
+    },
+    {
+      "id": "CC-9ed0b2229b7d",
+      "doc_id": "RBI-KYC-MD",
+      "old_clause_id": "CL-c79a13cad2af",
+      "new_clause_id": "CL-449eb94f8958",
+      "change_type": "EDITORIAL",
+      "similarity": 0.836,
+      "changed_parameters": [],
+      "summary": "Same words, different order or punctuation"
+    }
+  ]
+}

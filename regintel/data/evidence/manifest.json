@@ -1,0 +1,708 @@
+[
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-ACCESS-REVIEWS",
+    "control_ids": [
+      "ISB-C03"
+    ],
+    "title": "Internal privileged access review (quarterly)",
+    "kind": "LOG",
+    "path": "evidence/access_reviews.csv",
+    "period_start": "2025-01-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": 300,
+    "columns": [
+      "account_id",
+      "system",
+      "account_type",
+      "owner",
+      "reviewed_in_quarter",
+      "review_date",
+      "reviewer",
+      "action"
+    ]
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-CDD-ONBOARDING-LOG",
+    "control_ids": [
+      "KYC-C03",
+      "KYC-C05",
+      "KYC-C08"
+    ],
+    "title": "CDD onboarding log",
+    "kind": "LOG",
+    "path": "evidence/cdd_onboarding_log.csv",
+    "period_start": "2025-01-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": 3000,
+    "columns": [
+      "account_id",
+      "customer_id",
+      "product_id",
+      "ovd_type",
+      "verification_mode",
+      "verification_status",
+      "verified_at",
+      "activated_at",
+      "risk_category"
+    ]
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-CONSENT-RECORDS",
+    "control_ids": [
+      "DPR-C03",
+      "DPR-C04"
+    ],
+    "title": "Consent records",
+    "kind": "LOG",
+    "path": "evidence/consent_records.csv",
+    "period_start": "2025-01-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": 3000,
+    "columns": [
+      "consent_id",
+      "customer_id",
+      "purpose_code",
+      "notice_version",
+      "notice_language",
+      "captured_at",
+      "capture_method",
+      "status"
+    ]
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-DATA-ERASURE-LOG",
+    "control_ids": [
+      "DPR-C09"
+    ],
+    "title": "Personal data erasure log",
+    "kind": "LOG",
+    "path": "evidence/data_erasure_log.csv",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": 400,
+    "columns": [
+      "account_id",
+      "customer_id",
+      "closed_on",
+      "erased_on",
+      "days_after_closure",
+      "data_categories_erased",
+      "systems",
+      "erasure_rule"
+    ]
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-DPR-C01",
+    "control_ids": [
+      "DPR-C01"
+    ],
+    "title": "Control owner attestation - DPR-C01",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/dpr-c01.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-DPR-C02",
+    "control_ids": [
+      "DPR-C02"
+    ],
+    "title": "Control owner attestation - DPR-C02",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/dpr-c02.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-DPR-C05",
+    "control_ids": [
+      "DPR-C05"
+    ],
+    "title": "Control owner attestation - DPR-C05",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/dpr-c05.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-DPR-C06",
+    "control_ids": [
+      "DPR-C06"
+    ],
+    "title": "Control owner attestation - DPR-C06",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/dpr-c06.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-DPR-C07",
+    "control_ids": [
+      "DPR-C07"
+    ],
+    "title": "Control owner attestation - DPR-C07",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/dpr-c07.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-DPR-C08",
+    "control_ids": [
+      "DPR-C08"
+    ],
+    "title": "Control owner attestation - DPR-C08",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/dpr-c08.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-DPR-C10",
+    "control_ids": [
+      "DPR-C10"
+    ],
+    "title": "Control owner attestation - DPR-C10",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/dpr-c10.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-ISB-C01",
+    "control_ids": [
+      "ISB-C01"
+    ],
+    "title": "Control owner attestation - ISB-C01",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/isb-c01.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-ISB-C02",
+    "control_ids": [
+      "ISB-C02"
+    ],
+    "title": "Control owner attestation - ISB-C02",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/isb-c02.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-ISB-C04",
+    "control_ids": [
+      "ISB-C04"
+    ],
+    "title": "Control owner attestation - ISB-C04",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/isb-c04.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-ISB-C05",
+    "control_ids": [
+      "ISB-C05"
+    ],
+    "title": "Control owner attestation - ISB-C05",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/isb-c05.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-ISB-C06",
+    "control_ids": [
+      "ISB-C06"
+    ],
+    "title": "Control owner attestation - ISB-C06",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/isb-c06.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-ISB-C07",
+    "control_ids": [
+      "ISB-C07"
+    ],
+    "title": "Control owner attestation - ISB-C07",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/isb-c07.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-ISB-C09",
+    "control_ids": [
+      "ISB-C09"
+    ],
+    "title": "Control owner attestation - ISB-C09",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/isb-c09.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-ITO-C01",
+    "control_ids": [
+      "ITO-C01"
+    ],
+    "title": "Control owner attestation - ITO-C01",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/ito-c01.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-ITO-C04",
+    "control_ids": [
+      "ITO-C04"
+    ],
+    "title": "Control owner attestation - ITO-C04",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/ito-c04.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-ITO-C07",
+    "control_ids": [
+      "ITO-C07"
+    ],
+    "title": "Control owner attestation - ITO-C07",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/ito-c07.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-ITO-C09",
+    "control_ids": [
+      "ITO-C09"
+    ],
+    "title": "Control owner attestation - ITO-C09",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/ito-c09.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-KYC-C01",
+    "control_ids": [
+      "KYC-C01"
+    ],
+    "title": "Control owner attestation - KYC-C01",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/kyc-c01.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-KYC-C02",
+    "control_ids": [
+      "KYC-C02"
+    ],
+    "title": "Control owner attestation - KYC-C02",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/kyc-c02.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-KYC-C13",
+    "control_ids": [
+      "KYC-C13"
+    ],
+    "title": "Control owner attestation - KYC-C13",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/kyc-c13.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-KYC-C14",
+    "control_ids": [
+      "KYC-C14"
+    ],
+    "title": "Control owner attestation - KYC-C14",
+    "kind": "ATTESTATION",
+    "path": "evidence/attestations/kyc-c14.md",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": null,
+    "columns": []
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-KYC-PERIODIC-UPDATION",
+    "control_ids": [
+      "KYC-C09",
+      "KYC-C10",
+      "KYC-C11"
+    ],
+    "title": "Customer periodic KYC updation register",
+    "kind": "LOG",
+    "path": "evidence/kyc_periodic_updation.csv",
+    "period_start": "2025-01-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": 120000,
+    "columns": [
+      "customer_id",
+      "risk_category",
+      "onboarding_date",
+      "last_kyc_update_date",
+      "next_due_date_per_policy",
+      "kyc_status"
+    ]
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-SANCTIONS-SCREENING-LOG",
+    "control_ids": [
+      "KYC-C07"
+    ],
+    "title": "Sanctions screening log (onboarding)",
+    "kind": "LOG",
+    "path": "evidence/sanctions_screening_log.csv",
+    "period_start": "2025-01-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": 3000,
+    "columns": [
+      "account_id",
+      "customer_id",
+      "product_id",
+      "activated_at",
+      "screening_ts",
+      "lists_checked",
+      "screening_result",
+      "screened_before_activation"
+    ]
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-SECURITY-INCIDENTS",
+    "control_ids": [
+      "ISB-C08"
+    ],
+    "title": "Cyber security incident register",
+    "kind": "LOG",
+    "path": "evidence/security_incidents.csv",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": 24,
+    "columns": [
+      "incident_id",
+      "detected_at",
+      "category",
+      "severity",
+      "personal_data_involved",
+      "records_affected",
+      "certin_reported_at",
+      "hours_to_certin",
+      "rbi_reported",
+      "notified_to"
+    ]
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-STR-FILING-LOG",
+    "control_ids": [
+      "KYC-C12"
+    ],
+    "title": "STR filing log",
+    "kind": "LOG",
+    "path": "evidence/str_filing_log.csv",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": 120,
+    "columns": [
+      "str_id",
+      "alert_id",
+      "customer_id",
+      "alert_date",
+      "determination_date",
+      "str_filed_date",
+      "working_days_to_file"
+    ]
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-VCIP-SESSIONS",
+    "control_ids": [
+      "KYC-C04"
+    ],
+    "title": "V-CIP session log",
+    "kind": "LOG",
+    "path": "evidence/vcip_sessions.csv",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": 800,
+    "columns": [
+      "session_id",
+      "customer_id",
+      "session_ts",
+      "official_id",
+      "vendor_id",
+      "recorded",
+      "geo_tagged",
+      "liveness_passed",
+      "account_activated"
+    ]
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-VENDOR-PRIVILEGED-ACCESS-REVIEW",
+    "control_ids": [
+      "ITO-C06"
+    ],
+    "title": "Service-provider privileged access review (quarterly)",
+    "kind": "LOG",
+    "path": "evidence/vendor_privileged_access_review.csv",
+    "period_start": "2025-01-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": 120,
+    "columns": [
+      "account_id",
+      "vendor_id",
+      "system",
+      "access_level",
+      "granted_on",
+      "still_required",
+      "reviewed_in_quarter",
+      "review_date",
+      "reviewer",
+      "action"
+    ]
+  },
+  {
+    "valid_from": null,
+    "valid_to": null,
+    "recorded_at": "2025-03-31T00:00:00Z",
+    "scenario_id": null,
+    "id": "EV-VENDOR-REGISTER",
+    "control_ids": [
+      "ITO-C02",
+      "ITO-C03",
+      "ITO-C05"
+    ],
+    "title": "Outsourcing register (IT service providers)",
+    "kind": "REPORT",
+    "path": "evidence/vendor_register.csv",
+    "period_start": "2024-04-01",
+    "period_end": "2025-03-31",
+    "collected_on": "2025-03-31",
+    "row_count": 6,
+    "columns": [
+      "vendor_id",
+      "vendor_name",
+      "service",
+      "material",
+      "materiality_assessed_on",
+      "due_diligence_completed_on",
+      "onboarded_on",
+      "last_risk_assessment_on",
+      "contract_audit_rights_rbi",
+      "exit_plan_documented",
+      "in_outsourcing_register"
+    ]
+  }
+]

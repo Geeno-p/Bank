@@ -1,0 +1,14 @@
+topics:
+  - {id: KYC,              label: Know Your Customer / CDD,      keywords: [kyc, customer due diligence, cdd, periodic updation, re-kyc, beneficial owner, v-cip]}
+  - {id: AML_CFT,          label: AML / CFT,                     keywords: [money laundering, suspicious transaction, str, ctr, fiu, terrorist financing, pmla]}
+  - {id: RECORD_RETENTION, label: Record keeping & retention,    keywords: [preserve, retain, records, maintenance of records, five years, retention]}
+  - {id: DATA_PROTECTION,  label: Personal data protection,      keywords: [personal data, data fiduciary, data principal, processing, erasure, purpose limitation]}
+  - {id: CONSENT,          label: Consent & notice,              keywords: [consent, notice, withdraw, consent manager]}
+  - {id: DATA_BREACH,      label: Breach notification,           keywords: [breach, intimation, notify, incident]}
+  - {id: IT_OUTSOURCING,   label: IT outsourcing,                keywords: [outsourcing, service provider, material outsourcing, third party]}
+  - {id: VENDOR_RISK,      label: Vendor / third-party risk,     keywords: [due diligence of service provider, vendor, concentration risk, exit strategy]}
+  - {id: CYBER_SECURITY,   label: Cyber & information security,  keywords: [cyber, information security, access control, privileged, vulnerability]}
+  - {id: BCP_DR,           label: Business continuity / DR,      keywords: [business continuity, disaster recovery, bcp, drill, rto, rpo]}
+  - {id: GOVERNANCE,       label: Board & governance,            keywords: [board, senior management, policy approved, oversight, committee]}
+  - {id: GRIEVANCE,        label: Grievance redressal,           keywords: [grievance, complaint, redressal, ombudsman]}
+  - {id: AUDIT,            label: Audit & assurance,             keywords: [audit, internal audit, concurrent audit, assurance, review]}

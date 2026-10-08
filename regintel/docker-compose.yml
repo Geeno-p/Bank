@@ -1,0 +1,33 @@
+services:
+  neo4j:
+    image: neo4j:5.20
+    container_name: regintel-neo4j
+    ports: ["7474:7474", "7687:7687"]
+    environment:
+      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD:-regintel_pass}
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_server_memory_heap_max__size: 1G
+      NEO4J_server_memory_pagecache_size: 512M
+    volumes: [neo4j_data:/data]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:7474 || exit 1"]
+      interval: 10s
+      retries: 10
+
+  postgres:
+    image: postgres:16
+    container_name: regintel-postgres
+    ports: ["5432:5432"]
+    environment:
+      POSTGRES_USER: regintel
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-regintel_pass}
+      POSTGRES_DB: regintel
+    volumes: [pg_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U regintel"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  neo4j_data:
+  pg_data:

@@ -1,0 +1,7 @@
+vendor_id,vendor_name,service,material,materiality_assessed_on,due_diligence_completed_on,onboarded_on,last_risk_assessment_on,contract_audit_rights_rbi,exit_plan_documented,in_outsourcing_register
+V-CBS,CoreTech Systems (synthetic),Core banking hosting,True,2024-06-21,2024-07-14,2024-07-28,2024-07-01,True,True,True
+V-VKY,VeriFast KYC (synthetic),Video KYC platform,True,2020-01-09,2020-01-17,2020-02-04,2024-09-21,True,True,True
+V-SMS,PingMsg (synthetic),SMS alerts,False,2020-01-25,2020-01-27,2020-02-21,,True,False,True
+V-PRT,PrintHub Services (synthetic),Statement printing,False,2023-04-24,2023-04-19,2023-05-14,,True,True,True
+V-ARC,DataVault Archival (synthetic),Physical record archival,False,2021-04-02,2021-04-27,2021-05-04,,True,False,True
+V-HLP,DeskAssist (synthetic),IT helpdesk L1,False,2023-12-04,2023-12-26,2024-01-12,,True,True,True

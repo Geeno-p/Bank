@@ -1,0 +1,36 @@
+regulations:
+  - id: RBI-KYC-MD
+    title: Master Direction - Know Your Customer (KYC) Direction, 2016
+    issuer: RBI
+    doc_type: MASTER_DIRECTION
+    jurisdiction: IN
+    topics: [KYC, AML_CFT, RECORD_RETENTION]
+    versions:
+      - label: v-demo
+        path: data/regulations/RBI-KYC-MD/v-demo/raw.docx
+        effective_date: 2024-04-01
+      - label: v-amended
+        path: data/regulations/RBI-KYC-MD/v-amended/raw.docx
+        effective_date: 2025-07-01
+
+  - id: DPDP-2023
+    title: Digital Personal Data Protection Act, 2023
+    issuer: GoI
+    doc_type: ACT
+    jurisdiction: IN
+    topics: [DATA_PROTECTION, CONSENT, DATA_BREACH, RECORD_RETENTION]
+    versions:
+      - label: v-demo
+        path: data/regulations/DPDP-2023/v-demo/raw.docx      # DPDP-2023 / RBI-ITO-2023 accordingly
+        effective_date: 2024-04-01
+
+  - id: RBI-ITO-2023
+    title: RBI (Outsourcing of Information Technology Services) Directions, 2023
+    issuer: RBI
+    doc_type: MASTER_DIRECTION
+    jurisdiction: IN
+    topics: [IT_OUTSOURCING, VENDOR_RISK, BCP_DR, CYBER_SECURITY]
+    versions:
+      - label: v-demo
+        path: data/regulations/RBI-ITO-2023/v-demo/raw.docx      # DPDP-2023 / RBI-ITO-2023 accordingly
+        effective_date: 2024-04-01

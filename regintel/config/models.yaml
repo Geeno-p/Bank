@@ -1,0 +1,23 @@
+tiers:
+  big:   {provider: google, model: gemini-3.5-flash-lite,      temperature: 0.0, max_tokens: 4000, rpm: 8}
+  small: {provider: google, model: gemini-3.5-flash-lite, temperature: 0.0, max_tokens: 4000, rpm: 12}
+  # Groq backup:
+  # big:   {provider: groq, model: llama-3.3-70b-versatile, rpm: 25}
+  # small: {provider: groq, model: llama-3.1-8b-instant,    rpm: 25}
+  # Offline:
+  # small: {provider: ollama, model: "qwen2.5:7b", max_tokens: 2000}
+  # big:   {provider: openai, model: gpt-4o,      temperature: 0.0, max_tokens: 4000}
+  #small: {provider: openai, model: gpt-4o-mini, temperature: 0.0, max_tokens: 2000}
+  # alternative: {provider: anthropic, model: <current Claude Sonnet / Haiku id>}
+routing:
+  obligation_extraction: small
+  control_extraction: small
+  change_classification: small
+  applicability_ambiguous: small
+  critic: small
+  intent_classification: small
+  mapping_judge: big
+  contradiction_judge: big
+  remediation_drafting: big
+  impact_narrative: big
+  evidence_test_codegen: big

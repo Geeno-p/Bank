@@ -1,0 +1,23 @@
+severity_by_issuer: {RBI: 0.90, FIU-IND: 0.95, GoI: 0.85, DPB: 0.85, DEFAULT: 0.60}
+topic_severity_boost: {AML_CFT: 1.10, KYC: 1.05, DATA_PROTECTION: 1.05, DATA_BREACH: 1.10}
+inherent_by_band: {CRITICAL: 1.0, HIGH: 0.8, MEDIUM: 0.5, LOW: 0.25}
+gap_type_weakness:
+  UNMAPPED: 1.0
+  DESIGN_GAP: 0.8
+  OPERATING_FAILURE: 0.7
+  PARTIAL_COVERAGE: 0.6
+  MISSING_EVIDENCE: 0.5
+  STALE_CONTROL: 0.4
+urgency:                        # days until effective date -> factor
+  - {max_days: 30,    factor: 1.00}
+  - {max_days: 90,    factor: 0.85}
+  - {max_days: 180,   factor: 0.70}
+  - {max_days: 99999, factor: 0.50}
+blast_radius_cap: 2.0
+bands: {CRITICAL: 0.75, HIGH: 0.5, MEDIUM: 0.25}   # score >= threshold (we calibrate in Phase 4)
+default_exception_tolerance: 0.05
+evidence_staleness_multiplier: 1.25
+
+inherent_by_topic: {AML_CFT: HIGH, KYC: HIGH, DATA_PROTECTION: HIGH, DATA_BREACH: HIGH, CYBER_SECURITY: HIGH,
+                    CONSENT: MEDIUM, RECORD_RETENTION: MEDIUM, IT_OUTSOURCING: MEDIUM, VENDOR_RISK: MEDIUM,
+                    BCP_DR: MEDIUM, GOVERNANCE: LOW, GRIEVANCE: LOW, AUDIT: LOW}

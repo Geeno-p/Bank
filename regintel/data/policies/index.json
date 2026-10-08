@@ -1,0 +1,69 @@
+[
+  {
+    "policy_id": "KYC-POL",
+    "title": "Know Your Customer (KYC) and Anti-Money Laundering Policy",
+    "version": "4.2",
+    "owner_role": "Chief Compliance Officer",
+    "approved_by": "Board of Directors",
+    "approved_on": "2024-04-25",
+    "last_reviewed": "2024-04-25",
+    "review_frequency": "ANNUAL",
+    "topics": [
+      "KYC",
+      "AML_CFT",
+      "RECORD_RETENTION"
+    ],
+    "docx": "policies/KYC-POL.docx",
+    "markdown": "policies/KYC-POL.md"
+  },
+  {
+    "policy_id": "DPR-POL",
+    "title": "Personal Data Protection and Retention Policy",
+    "version": "2.0",
+    "owner_role": "Data Protection Officer",
+    "approved_by": "Board Risk Management Committee",
+    "approved_on": "2024-09-30",
+    "last_reviewed": "2024-09-30",
+    "review_frequency": "ANNUAL",
+    "topics": [
+      "DATA_PROTECTION",
+      "CONSENT",
+      "RECORD_RETENTION"
+    ],
+    "docx": "policies/DPR-POL.docx",
+    "markdown": "policies/DPR-POL.md"
+  },
+  {
+    "policy_id": "ITO-POL",
+    "title": "IT Outsourcing and Third-Party Risk Policy",
+    "version": "3.1",
+    "owner_role": "Chief Information Officer",
+    "approved_by": "Board of Directors",
+    "approved_on": "2024-03-28",
+    "last_reviewed": "2024-03-28",
+    "review_frequency": "ANNUAL",
+    "topics": [
+      "IT_OUTSOURCING",
+      "VENDOR_RISK",
+      "BCP_DR"
+    ],
+    "docx": "policies/ITO-POL.docx",
+    "markdown": "policies/ITO-POL.md"
+  },
+  {
+    "policy_id": "ISB-POL",
+    "title": "Information Security and Cyber Incident Management Policy",
+    "version": "5.0",
+    "owner_role": "Chief Information Security Officer",
+    "approved_by": "Board of Directors",
+    "approved_on": "2024-11-20",
+    "last_reviewed": "2024-11-20",
+    "review_frequency": "ANNUAL",
+    "topics": [
+      "CYBER_SECURITY",
+      "DATA_BREACH"
+    ],
+    "docx": "policies/ISB-POL.docx",
+    "markdown": "policies/ISB-POL.md"
+  }
+]

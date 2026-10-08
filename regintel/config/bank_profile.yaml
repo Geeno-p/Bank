@@ -1,0 +1,41 @@
+id: BUB
+name: Bharat Unity Bank Ltd. (synthetic)
+licence_type: SCHEDULED_COMMERCIAL_BANK
+regulators: [RBI, FIU-IND, DPB]
+jurisdictions: [IN]
+
+entities:
+  - {id: BUB-HO,  name: Head Office Mumbai,        type: HEAD_OFFICE,   geography: IN-MH}
+  - {id: BUB-RET, name: Retail Banking,            type: BUSINESS_UNIT, geography: IN}
+  - {id: BUB-SME, name: SME Banking,               type: BUSINESS_UNIT, geography: IN}
+  - {id: BUB-DIG, name: Digital Lending,           type: BUSINESS_UNIT, geography: IN}
+  - {id: BUB-IT,  name: Technology and Operations, type: FUNCTION,      geography: IN}
+
+products:
+  - {id: P-SAV, name: Savings Account,          line: RETAIL, inherent_risk: MEDIUM}
+  - {id: P-CUR, name: SME Current Account,      line: SME,    inherent_risk: HIGH}
+  - {id: P-DPL, name: Digital Personal Loan,    line: DIGITAL, inherent_risk: HIGH}
+  - {id: P-REM, name: Outward Remittance,       line: RETAIL, inherent_risk: HIGH}
+  - {id: P-CC,  name: Credit Card,              line: RETAIL, inherent_risk: MEDIUM}
+
+customer_base:
+  total: 120000
+  risk_distribution: {HIGH: 1840, MEDIUM: 21500, LOW: 96660}
+
+attributes:                     # boolean facts used by applicability rules
+  processes_personal_data: true
+  uses_it_outsourcing: true
+  uses_cloud: true
+  offers_digital_lending: true
+  offers_cross_border: true
+  is_payments_bank: false
+  is_nbfc: false
+
+outsourcing_vendors:
+  - {id: V-CBS, name: CoreTech Systems (synthetic), service: Core banking hosting, material: true}
+  - {id: V-VKY, name: VeriFast KYC (synthetic),     service: Video KYC platform,   material: true}
+  - {id: V-SMS, name: PingMsg (synthetic),          service: SMS alerts,           material: false}
+
+risk_appetite:
+  regulatory_breach: LOW
+  exception_tolerance_pct: 5

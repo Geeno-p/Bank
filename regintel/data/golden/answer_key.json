@@ -1,0 +1,1090 @@
+{
+  "meta": {
+    "bank": "Bharat Unity Bank Ltd. (synthetic)",
+    "seed": 42,
+    "as_of": "2025-03-31",
+    "warning": "GROUND TRUTH - for evaluation only, never feed to agents"
+  },
+  "summary": {
+    "policies": 4,
+    "controls": 42,
+    "clean_controls": 34,
+    "controls_without_regulatory_link": 7,
+    "evidence_csv": 11,
+    "attestations": 22,
+    "withheld_evidence": 2,
+    "planted_gaps": 10,
+    "gap_types_covered": 6,
+    "contradictions": 2
+  },
+  "planted_gaps": [
+    {
+      "id": "G01",
+      "gap_type": "DESIGN_GAP",
+      "regulation_id": "RBI-KYC-MD",
+      "obligation_hint": "periodic updation for medium risk customers at least once every eight years",
+      "control_id": "KYC-C10",
+      "title": "Medium-risk periodic KYC set at 10 years; regulation requires 8",
+      "detection_signal": "Parameter mismatch 10y vs 8y; 860 medium-risk customers last updated 8-10y ago are CURRENT per policy but overdue per regulation",
+      "evidence_key": "csv:kyc_periodic_updation",
+      "evidence_stats": {
+        "rows": 120000,
+        "high_population": 1840,
+        "high_overdue_vs_2y": 37,
+        "high_rate_vs_2y": 0.0201,
+        "high_overdue_vs_1y": 312,
+        "high_rate_vs_1y": 0.1696,
+        "medium_population": 21500,
+        "medium_overdue_vs_8y_current_per_policy": 860
+      }
+    },
+    {
+      "id": "G02",
+      "gap_type": "UNMAPPED",
+      "regulation_id": "RBI-KYC-MD",
+      "obligation_hint": "upload KYC records to the Central KYC Records Registry (CKYCR)",
+      "control_id": null,
+      "title": "No control for CKYCR upload",
+      "detection_signal": "No control in any policy maps to the CKYCR obligation",
+      "evidence_key": null,
+      "evidence_stats": null
+    },
+    {
+      "id": "G03",
+      "gap_type": "MISSING_EVIDENCE",
+      "regulation_id": "RBI-KYC-MD",
+      "obligation_hint": "identify beneficial owner of legal entity customers and verify identity",
+      "control_id": "KYC-C06",
+      "title": "Beneficial ownership attestations not available",
+      "detection_signal": "Control expects att:bo_attestations; manifest has no evidence for KYC-C06",
+      "evidence_key": "att:bo_attestations",
+      "evidence_stats": null
+    },
+    {
+      "id": "G04",
+      "gap_type": "OPERATING_FAILURE",
+      "regulation_id": "RBI-KYC-MD",
+      "obligation_hint": "verify customer is not in sanctions lists before opening account",
+      "control_id": "KYC-C07",
+      "title": "6% of Q4 accounts activated without prior sanctions screening",
+      "detection_signal": "screened_before_activation == False in 180/3000 rows (6.0% > 5% tolerance)",
+      "evidence_key": "csv:sanctions_screening_log",
+      "evidence_stats": {
+        "rows": 3000,
+        "population": 3000,
+        "exceptions": 180,
+        "exception_rate": 0.06
+      }
+    },
+    {
+      "id": "G05",
+      "gap_type": "PARTIAL_COVERAGE",
+      "regulation_id": "DPDP-2023",
+      "obligation_hint": "intimate personal data breach to the Data Protection Board and each affected data principal",
+      "control_id": "ISB-C08",
+      "title": "Incident reporting covers CERT-In/RBI only; no DPB or data principal intimation",
+      "detection_signal": "Mapping missing_elements: DPB intimation, data principal intimation; personal-data incidents notified to 'CERT-In;RBI' only",
+      "evidence_key": "csv:security_incidents",
+      "evidence_stats": {
+        "rows": 24,
+        "population": 24,
+        "personal_data_incidents": 4,
+        "dpb_or_principal_notified": 0
+      }
+    },
+    {
+      "id": "G06",
+      "gap_type": "UNMAPPED",
+      "regulation_id": "DPDP-2023",
+      "obligation_hint": "right to withdraw consent with ease comparable to giving consent",
+      "control_id": null,
+      "title": "No consent withdrawal mechanism",
+      "detection_signal": "No control maps; consent_records has zero WITHDRAWN records",
+      "evidence_key": "csv:consent_records",
+      "evidence_stats": {
+        "rows": 3000,
+        "population": 3000,
+        "withdrawn_records": 0
+      }
+    },
+    {
+      "id": "G07",
+      "gap_type": "STALE_CONTROL",
+      "regulation_id": "DPDP-2023",
+      "obligation_hint": "erase personal data when purpose no longer served unless retention required by law",
+      "control_id": "DPR-C08",
+      "title": "Retention schedule last reviewed Aug 2021, aligned to SPDI Rules 2011",
+      "detection_signal": "last_reviewed 2021-08-16 exceeds annual review cycle; references pre-DPDP framework",
+      "evidence_key": "att:dpr-c08",
+      "evidence_stats": null
+    },
+    {
+      "id": "G08",
+      "gap_type": "DESIGN_GAP",
+      "regulation_id": "RBI-KYC-MD",
+      "obligation_hint": "preserve records of identification for at least five years after relationship ended",
+      "control_id": "DPR-C09",
+      "title": "KYC documents erased 180 days after closure, breaching 5-year retention",
+      "detection_signal": "data_erasure_log: KYC_DOCUMENTS erased ~180 days after closure; conflicts with KYC-C14",
+      "evidence_key": "csv:data_erasure_log",
+      "evidence_stats": {
+        "rows": 400,
+        "population": 400,
+        "kyc_records_erased_within_5y": 400
+      }
+    },
+    {
+      "id": "G09",
+      "gap_type": "MISSING_EVIDENCE",
+      "regulation_id": "RBI-ITO-2023",
+      "obligation_hint": "BCP/DR plan with service provider periodically tested",
+      "control_id": "ITO-C08",
+      "title": "No evidence of annual joint DR drill with material providers",
+      "detection_signal": "Control expects att:dr_drill_report; manifest has no evidence for ITO-C08",
+      "evidence_key": "att:dr_drill_report",
+      "evidence_stats": null
+    },
+    {
+      "id": "G10",
+      "gap_type": "OPERATING_FAILURE",
+      "regulation_id": "RBI-ITO-2023",
+      "obligation_hint": "controls over service provider access to systems and data",
+      "control_id": "ITO-C06",
+      "title": "14% of service-provider privileged accounts not reviewed this quarter",
+      "detection_signal": "reviewed_in_quarter == False in 17/120 (14.2%); 5 no longer required",
+      "evidence_key": "csv:vendor_privileged_access_review",
+      "evidence_stats": {
+        "rows": 120,
+        "population": 120,
+        "exceptions": 17,
+        "exception_rate": 0.1417,
+        "unreviewed_not_required": 5
+      }
+    }
+  ],
+  "contradictions": [
+    {
+      "id": "X1",
+      "scope": "REG_VS_REG",
+      "side_a": {
+        "kind": "obligation",
+        "ref": "RBI-KYC-MD",
+        "hint": "preserve records for at least five years after business relationship ended"
+      },
+      "side_b": {
+        "kind": "obligation",
+        "ref": "DPDP-2023",
+        "hint": "erase personal data when purpose no longer served or consent withdrawn"
+      },
+      "expected_relation": "CONFLICT",
+      "acceptable_relations": [
+        "CONFLICT",
+        "RELATED"
+      ],
+      "expected_resolution": "SEQUENTIAL",
+      "harmonised_hint": "Retain KYC/transaction records for the statutory period after relationship ends, then erase; legal-hold override.",
+      "note": "Apparent conflict: DPDP permits retention required by law. Verify wording in source texts."
+    },
+    {
+      "id": "X2",
+      "scope": "POLICY_VS_POLICY",
+      "side_a": {
+        "kind": "control",
+        "ref": "KYC-C14",
+        "hint": "preserve KYC records five years after closure"
+      },
+      "side_b": {
+        "kind": "control",
+        "ref": "DPR-C09",
+        "hint": "erase KYC documents within 180 days of closure"
+      },
+      "expected_relation": "CONFLICT",
+      "acceptable_relations": [
+        "CONFLICT"
+      ],
+      "expected_resolution": "STATUTORY_OVERRIDE",
+      "harmonised_hint": "Amend DPR-C09: erase only after KYC/PMLA retention period, excluding legal holds.",
+      "note": ""
+    }
+  ],
+  "change_demo": {
+    "control_id": "KYC-C09",
+    "regulation_id": "RBI-KYC-MD",
+    "parameter": "periodic_updation_high_risk",
+    "baseline_value": "2 years",
+    "hypothetical_value": "1 year",
+    "note": "HYPOTHETICAL amendment for demo only; not an actual RBI change.",
+    "population": 1840,
+    "tolerance": 0.05,
+    "baseline": {
+      "overdue": 37,
+      "rate": 0.0201,
+      "passes_tolerance": true
+    },
+    "hypothetical": {
+      "overdue": 312,
+      "rate": 0.1696,
+      "passes_tolerance": false
+    }
+  },
+  "false_positive_traps": {
+    "clean_controls": [
+      "KYC-C01",
+      "KYC-C02",
+      "KYC-C03",
+      "KYC-C04",
+      "KYC-C05",
+      "KYC-C08",
+      "KYC-C09",
+      "KYC-C11",
+      "KYC-C12",
+      "KYC-C13",
+      "KYC-C14",
+      "DPR-C01",
+      "DPR-C02",
+      "DPR-C03",
+      "DPR-C04",
+      "DPR-C05",
+      "DPR-C06",
+      "DPR-C07",
+      "DPR-C10",
+      "ITO-C01",
+      "ITO-C02",
+      "ITO-C03",
+      "ITO-C04",
+      "ITO-C05",
+      "ITO-C07",
+      "ITO-C09",
+      "ISB-C01",
+      "ISB-C02",
+      "ISB-C03",
+      "ISB-C04",
+      "ISB-C05",
+      "ISB-C06",
+      "ISB-C07",
+      "ISB-C09"
+    ],
+    "controls_without_regulatory_link": [
+      "ISB-C01",
+      "ISB-C02",
+      "ISB-C03",
+      "ISB-C04",
+      "ISB-C05",
+      "ISB-C06",
+      "ISB-C09"
+    ]
+  },
+  "withheld_evidence": [
+    "att:bo_attestations",
+    "att:dr_drill_report"
+  ],
+  "controls": [
+    {
+      "control_id": "KYC-C01",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 3.1",
+      "name": "Board approval and annual review of KYC Policy",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "KYC policy duly approved by the Board"
+        }
+      ],
+      "evidence_keys": [
+        "att:kyc-c01"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "KYC-C02",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 3.2",
+      "name": "Designated Director and Principal Officer",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "nominate designated director and principal officer and communicate to FIU-IND"
+        }
+      ],
+      "evidence_keys": [
+        "att:kyc-c02"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "KYC-C03",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 4.1",
+      "name": "No anonymous or fictitious accounts",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "no account opened in anonymous or fictitious or benami name"
+        }
+      ],
+      "evidence_keys": [
+        "csv:cdd_onboarding_log"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "KYC-C04",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 4.2",
+      "name": "V-CIP conduct standards",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "V-CIP by trained official with recording, geo-tagging and liveness check"
+        }
+      ],
+      "evidence_keys": [
+        "csv:vcip_sessions"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "KYC-C05",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 5.1",
+      "name": "Identity verification at onboarding",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "customer due diligence using OVD or Aadhaar e-KYC authentication"
+        }
+      ],
+      "evidence_keys": [
+        "csv:cdd_onboarding_log"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "KYC-C06",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 5.2",
+      "name": "Beneficial owner identification",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "identify beneficial owner of legal entity customers and verify identity"
+        }
+      ],
+      "evidence_keys": [
+        "att:bo_attestations"
+      ],
+      "planted_gaps": [
+        "G03"
+      ],
+      "in_contradiction": false,
+      "is_clean": false,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "KYC-C07",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 5.3",
+      "name": "Sanctions screening before activation",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "verify customer is not in UNSC sanctions lists or UAPA designated lists before opening account"
+        }
+      ],
+      "evidence_keys": [
+        "csv:sanctions_screening_log"
+      ],
+      "planted_gaps": [
+        "G04"
+      ],
+      "in_contradiction": false,
+      "is_clean": false,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "KYC-C08",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 6.1",
+      "name": "Customer risk categorisation",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "risk categorisation of customers as low, medium or high risk"
+        }
+      ],
+      "evidence_keys": [
+        "csv:cdd_onboarding_log"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "KYC-C09",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 6.2",
+      "name": "Periodic KYC updation - High risk",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "periodic updation for high risk customers at least once every two years"
+        }
+      ],
+      "evidence_keys": [
+        "csv:kyc_periodic_updation"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "KYC-C10",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 6.3",
+      "name": "Periodic KYC updation - Medium risk",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "periodic updation for medium risk customers at least once every eight years"
+        }
+      ],
+      "evidence_keys": [
+        "csv:kyc_periodic_updation"
+      ],
+      "planted_gaps": [
+        "G01"
+      ],
+      "in_contradiction": false,
+      "is_clean": false,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "KYC-C11",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 6.4",
+      "name": "Periodic KYC updation - Low risk",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "periodic updation for low risk customers at least once every ten years"
+        }
+      ],
+      "evidence_keys": [
+        "csv:kyc_periodic_updation"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "KYC-C12",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 6.5",
+      "name": "Alert review and STR filing",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "report suspicious transactions to FIU-IND"
+        }
+      ],
+      "evidence_keys": [
+        "csv:str_filing_log"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "KYC-C13",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 7.1",
+      "name": "Cash Transaction Reports",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "furnish cash transaction reports to FIU-IND"
+        }
+      ],
+      "evidence_keys": [
+        "att:kyc-c13"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "KYC-C14",
+      "policy_id": "KYC-POL",
+      "clause_ref": "KYC-POL 7.2",
+      "name": "Record preservation - five years",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-KYC-MD",
+          "hint": "preserve records of transactions and identification for at least five years after business relationship ended"
+        }
+      ],
+      "evidence_keys": [
+        "att:kyc-c14"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": true,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "DPR-C01",
+      "policy_id": "DPR-POL",
+      "clause_ref": "DPR-POL 2.1",
+      "name": "Data Protection Officer",
+      "expected_links": [
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "publish business contact information of person answering data principal questions"
+        },
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "significant data fiduciary appoint data protection officer based in India"
+        }
+      ],
+      "evidence_keys": [
+        "att:dpr-c01"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "DPR-C02",
+      "policy_id": "DPR-POL",
+      "clause_ref": "DPR-POL 2.2",
+      "name": "DPIA and independent data audit",
+      "expected_links": [
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "significant data fiduciary periodic data protection impact assessment and independent data audit"
+        }
+      ],
+      "evidence_keys": [
+        "att:dpr-c02"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "DPR-C03",
+      "policy_id": "DPR-POL",
+      "clause_ref": "DPR-POL 3.1",
+      "name": "Privacy notice at collection",
+      "expected_links": [
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "notice describing personal data and purpose of processing"
+        },
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "notice in English or a language in the Eighth Schedule"
+        }
+      ],
+      "evidence_keys": [
+        "csv:consent_records"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "DPR-C04",
+      "policy_id": "DPR-POL",
+      "clause_ref": "DPR-POL 3.2",
+      "name": "Consent capture and logging",
+      "expected_links": [
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "consent free, specific, informed, unconditional and unambiguous with clear affirmative action"
+        }
+      ],
+      "evidence_keys": [
+        "csv:consent_records"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "DPR-C05",
+      "policy_id": "DPR-POL",
+      "clause_ref": "DPR-POL 4.1",
+      "name": "Purpose limitation and data inventory",
+      "expected_links": [
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "process personal data only for lawful purpose with consent or for legitimate uses"
+        }
+      ],
+      "evidence_keys": [
+        "att:dpr-c05"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "DPR-C06",
+      "policy_id": "DPR-POL",
+      "clause_ref": "DPR-POL 4.2",
+      "name": "Children's personal data",
+      "expected_links": [
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "verifiable consent of parent before processing personal data of a child"
+        },
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "no tracking, behavioural monitoring or targeted advertising directed at children"
+        }
+      ],
+      "evidence_keys": [
+        "att:dpr-c06"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "DPR-C07",
+      "policy_id": "DPR-POL",
+      "clause_ref": "DPR-POL 5.1",
+      "name": "Reasonable security safeguards",
+      "expected_links": [
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "reasonable security safeguards to prevent personal data breach"
+        }
+      ],
+      "evidence_keys": [
+        "att:dpr-c07"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "DPR-C08",
+      "policy_id": "DPR-POL",
+      "clause_ref": "DPR-POL 6.1",
+      "name": "Retention schedule",
+      "expected_links": [
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "erase personal data when purpose no longer served unless retention necessary for compliance with law"
+        }
+      ],
+      "evidence_keys": [
+        "att:dpr-c08"
+      ],
+      "planted_gaps": [
+        "G07"
+      ],
+      "in_contradiction": false,
+      "is_clean": false,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "DPR-C09",
+      "policy_id": "DPR-POL",
+      "clause_ref": "DPR-POL 6.2",
+      "name": "Erasure after account closure",
+      "expected_links": [
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "erase personal data when purpose no longer served unless retention necessary for compliance with law"
+        }
+      ],
+      "evidence_keys": [
+        "csv:data_erasure_log"
+      ],
+      "planted_gaps": [
+        "G08"
+      ],
+      "in_contradiction": true,
+      "is_clean": false,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "DPR-C10",
+      "policy_id": "DPR-POL",
+      "clause_ref": "DPR-POL 7.1",
+      "name": "Data principal requests",
+      "expected_links": [
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "right to obtain information about personal data processed"
+        },
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "right to correction, completion, updating and erasure of personal data"
+        }
+      ],
+      "evidence_keys": [
+        "att:dpr-c10"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "ITO-C01",
+      "policy_id": "ITO-POL",
+      "clause_ref": "ITO-POL 2.1",
+      "name": "Board policy and IT Strategy Committee oversight",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-ITO-2023",
+          "hint": "board approved policy on IT outsourcing"
+        },
+        {
+          "regulation_id": "RBI-ITO-2023",
+          "hint": "IT strategy committee oversight of outsourcing arrangements"
+        }
+      ],
+      "evidence_keys": [
+        "att:ito-c01"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "ITO-C02",
+      "policy_id": "ITO-POL",
+      "clause_ref": "ITO-POL 3.1",
+      "name": "Materiality assessment and register",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-ITO-2023",
+          "hint": "assess materiality of outsourcing arrangement"
+        },
+        {
+          "regulation_id": "RBI-ITO-2023",
+          "hint": "maintain inventory of outsourced IT services"
+        }
+      ],
+      "evidence_keys": [
+        "csv:vendor_register"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "ITO-C03",
+      "policy_id": "ITO-POL",
+      "clause_ref": "ITO-POL 3.2",
+      "name": "Service provider due diligence",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-ITO-2023",
+          "hint": "due diligence of service provider before outsourcing"
+        }
+      ],
+      "evidence_keys": [
+        "csv:vendor_register"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "ITO-C04",
+      "policy_id": "ITO-POL",
+      "clause_ref": "ITO-POL 4.1",
+      "name": "Audit and access rights in contracts",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-ITO-2023",
+          "hint": "agreement provides access and audit rights to regulated entity and RBI"
+        },
+        {
+          "regulation_id": "RBI-ITO-2023",
+          "hint": "agreement covers confidentiality, sub-contracting and termination"
+        }
+      ],
+      "evidence_keys": [
+        "att:ito-c04"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "ITO-C05",
+      "policy_id": "ITO-POL",
+      "clause_ref": "ITO-POL 5.1",
+      "name": "Annual risk assessment of material providers",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-ITO-2023",
+          "hint": "periodic risk assessment and performance monitoring of service providers"
+        }
+      ],
+      "evidence_keys": [
+        "csv:vendor_register"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "ITO-C06",
+      "policy_id": "ITO-POL",
+      "clause_ref": "ITO-POL 5.2",
+      "name": "Quarterly review of service-provider privileged access",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-ITO-2023",
+          "hint": "controls over service provider access to regulated entity systems and data"
+        }
+      ],
+      "evidence_keys": [
+        "csv:vendor_privileged_access_review"
+      ],
+      "planted_gaps": [
+        "G10"
+      ],
+      "in_contradiction": false,
+      "is_clean": false,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "ITO-C07",
+      "policy_id": "ITO-POL",
+      "clause_ref": "ITO-POL 5.3",
+      "name": "Concentration risk monitoring",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-ITO-2023",
+          "hint": "monitor concentration risk of service providers"
+        }
+      ],
+      "evidence_keys": [
+        "att:ito-c07"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "ITO-C08",
+      "policy_id": "ITO-POL",
+      "clause_ref": "ITO-POL 6.1",
+      "name": "Joint DR drill with material providers",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-ITO-2023",
+          "hint": "business continuity and disaster recovery plan with service provider periodically tested"
+        }
+      ],
+      "evidence_keys": [
+        "att:dr_drill_report"
+      ],
+      "planted_gaps": [
+        "G09"
+      ],
+      "in_contradiction": false,
+      "is_clean": false,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "ITO-C09",
+      "policy_id": "ITO-POL",
+      "clause_ref": "ITO-POL 6.2",
+      "name": "Exit strategy",
+      "expected_links": [
+        {
+          "regulation_id": "RBI-ITO-2023",
+          "hint": "exit strategy for outsourcing arrangements"
+        }
+      ],
+      "evidence_keys": [
+        "att:ito-c09"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "ISB-C01",
+      "policy_id": "ISB-POL",
+      "clause_ref": "ISB-POL 2.1",
+      "name": "Board policy and CISO",
+      "expected_links": [],
+      "evidence_keys": [
+        "att:isb-c01"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": false
+    },
+    {
+      "control_id": "ISB-C02",
+      "policy_id": "ISB-POL",
+      "clause_ref": "ISB-POL 3.1",
+      "name": "Role-based access and leaver revocation",
+      "expected_links": [],
+      "evidence_keys": [
+        "att:isb-c02"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": false
+    },
+    {
+      "control_id": "ISB-C03",
+      "policy_id": "ISB-POL",
+      "clause_ref": "ISB-POL 3.2",
+      "name": "Quarterly review of internal privileged accounts",
+      "expected_links": [],
+      "evidence_keys": [
+        "csv:access_reviews"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": false
+    },
+    {
+      "control_id": "ISB-C04",
+      "policy_id": "ISB-POL",
+      "clause_ref": "ISB-POL 3.3",
+      "name": "Multi-factor authentication",
+      "expected_links": [],
+      "evidence_keys": [
+        "att:isb-c04"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": false
+    },
+    {
+      "control_id": "ISB-C05",
+      "policy_id": "ISB-POL",
+      "clause_ref": "ISB-POL 4.1",
+      "name": "Vulnerability management",
+      "expected_links": [],
+      "evidence_keys": [
+        "att:isb-c05"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": false
+    },
+    {
+      "control_id": "ISB-C06",
+      "policy_id": "ISB-POL",
+      "clause_ref": "ISB-POL 4.2",
+      "name": "Log retention",
+      "expected_links": [],
+      "evidence_keys": [
+        "att:isb-c06"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": false
+    },
+    {
+      "control_id": "ISB-C07",
+      "policy_id": "ISB-POL",
+      "clause_ref": "ISB-POL 4.3",
+      "name": "Encryption standards",
+      "expected_links": [
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "reasonable security safeguards to prevent personal data breach"
+        }
+      ],
+      "evidence_keys": [
+        "att:isb-c07"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "ISB-C08",
+      "policy_id": "ISB-POL",
+      "clause_ref": "ISB-POL 5.1",
+      "name": "Cyber incident reporting",
+      "expected_links": [
+        {
+          "regulation_id": "DPDP-2023",
+          "hint": "intimate personal data breach to the Data Protection Board and each affected data principal"
+        }
+      ],
+      "evidence_keys": [
+        "csv:security_incidents"
+      ],
+      "planted_gaps": [
+        "G05"
+      ],
+      "in_contradiction": false,
+      "is_clean": false,
+      "has_regulatory_link": true
+    },
+    {
+      "control_id": "ISB-C09",
+      "policy_id": "ISB-POL",
+      "clause_ref": "ISB-POL 6.1",
+      "name": "Security awareness training",
+      "expected_links": [],
+      "evidence_keys": [
+        "att:isb-c09"
+      ],
+      "planted_gaps": [],
+      "in_contradiction": false,
+      "is_clean": true,
+      "has_regulatory_link": false
+    }
+  ]
+}
