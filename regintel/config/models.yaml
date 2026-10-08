@@ -21,3 +21,4 @@ routing:
   remediation_drafting: big
   impact_narrative: big
   evidence_test_codegen: big
+  copilot: big

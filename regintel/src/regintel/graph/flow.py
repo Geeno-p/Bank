@@ -55,6 +55,7 @@ class FlowState(TypedDict, total=False):
     approved: bool
     status: str
     trace: Annotated[list[dict[str, Any]], operator.add]
+    closed_gap_ids: list[str]
 
 
 def step(name: str):
@@ -174,10 +175,13 @@ def assess_node(s: FlowState) -> dict:
     impacted = [g for g in gaps if g.obligation_id in new or g.id not in prev]
     review = [g.id for g in impacted if g.risk and g.risk.band in REVIEW_BANDS]
     _queue(review, run_id)
-    return {"impacted_gap_ids": [g.id for g in impacted], "review_ids": review,
-            "_info": f"{len(gaps)} gaps | impacted {len(impacted)}: " +
+    closed = sorted(prev - {g.id for g in gaps})
+    if closed:
+        audit("agent:gap_engine", "CLOSED", "run", run_id, {"gap_ids": closed}, run_id)
+    return {"impacted_gap_ids": [g.id for g in impacted], "review_ids": review, "closed_gap_ids": closed,
+            "_info": f"{len(gaps)} gaps | closed {len(closed)} | impacted {len(impacted)}: " +
                      "; ".join(f"{g.risk.band.value} {g.gap_type.value} {g.control_id or '-'}" for g in impacted[:5])}
-
+    
 
 @step("critic")
 def critic_node(s: FlowState) -> dict:
@@ -271,5 +275,6 @@ def build(checkpointer=None):
 
 
 def sqlite_checkpointer() -> SqliteSaver:
-    path = get_settings().data_dir / "checkpoints.db"
-    return SqliteSaver(sqlite3.connect(path, check_same_thread=False))
+    conn = sqlite3.connect(get_settings().data_dir / "checkpoints.db", check_same_thread=False, timeout=30)
+    conn.execute("PRAGMA journal_mode=WAL")
+    return SqliteSaver(conn)

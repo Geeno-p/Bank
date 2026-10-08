@@ -1,0 +1,13 @@
+{
+  "valid_from": "2024-04-25",
+  "valid_to": null,
+  "recorded_at": "2026-10-07T05:53:51.956648Z",
+  "scenario_id": null,
+  "id": "VER-cb6d94ec497f",
+  "doc_id": "KYC-POL",
+  "doc_type": "POLICY",
+  "version_label": "v4.2",
+  "effective_date": "2024-04-25",
+  "source_path": "C:\\Users\\geeno.perumal\\Downloads\\Bank\\regintel\\data\\policies\\KYC-POL.docx",
+  "sha256": "14dbcc69d7630d10b1ac6252e8aad404466648fe7f73cbb6ca058c3df10c0f60"
+}

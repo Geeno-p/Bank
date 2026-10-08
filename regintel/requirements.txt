@@ -1,0 +1,17 @@
+pydantic>=2.7
+pydantic-settings>=2.3
+pyyaml>=6.0
+rich>=13.7
+typer>=0.12
+pandas>=2.2
+numpy
+scipy>=1.13
+rank-bm25>=0.2.2
+python-docx>=1.1
+neo4j>=5.20
+openai>=1.40
+instructor>=1.4
+langgraph>=0.2
+langgraph-checkpoint-sqlite>=2.0
+streamlit>=1.40
+apscheduler>=3.10,<4

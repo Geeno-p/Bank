@@ -2,8 +2,10 @@
 .venv/
 __pycache__/
 *.pyc
-data/regulations/**/*.pdf
-data/parsed/
 .pytest_cache/
 .ruff_cache/
-data/*.db*
+.streamlit/secrets.toml
+data/*.db
+data/*.db-*
+data/regulations/**/*.pdf
+uv.lock

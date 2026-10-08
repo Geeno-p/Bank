@@ -1,0 +1,11 @@
+jobs:
+  regulation_watch_minutes: 5
+  evidence_watch_minutes: 2
+  scheduled_test_cron: "0 6 * * *"      # daily 06:00, local time
+  kri_minutes: 10
+kris:
+  - {id: KRI-01, name: Accounts activated before sanctions screening, metric: exception_rate, control_id: KYC-C07, threshold: 0.01}
+  - {id: KRI-02, name: STRs filed late,                          metric: exception_rate, control_id: KYC-C12, threshold: 0.02}
+  - {id: KRI-03, name: Vendor privileged access not reviewed,    metric: exception_rate, control_id: ITO-C06, threshold: 0.0}
+  - {id: KRI-04, name: High-risk re-KYC overdue (policy period), metric: exception_rate, control_id: KYC-C09, threshold: 0.05}
+  - {id: KRI-05, name: Open HIGH/CRITICAL gaps,                  metric: open_gaps, bands: [CRITICAL, HIGH], threshold: 5}

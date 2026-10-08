@@ -63,6 +63,14 @@ CREATE TABLE IF NOT EXISTS llm_cache (
     response   TEXT NOT NULL,
     created_at TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS monitor_state (
+    key TEXT PRIMARY KEY, value TEXT, updated_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS kri_snapshots (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT NOT NULL, kri_id TEXT NOT NULL,
+    value REAL, threshold REAL, status TEXT NOT NULL
+);
 """
 
 

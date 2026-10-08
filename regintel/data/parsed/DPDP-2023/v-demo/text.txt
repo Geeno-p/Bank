@@ -1,0 +1,24 @@
+Digital Personal Data Protection - Demo Excerpt
+SYNTHETIC DEMO EXCERPT: paraphrased for a hackathon demonstration. Not the official text; clause numbering is illustrative. Verify against the official publication.
+CHAPTER I Preliminary
+1. This excerpt applies to the processing of digital personal data within India.
+CHAPTER II Obligations of Data Fiduciary
+2. A Data Fiduciary shall process personal data only for a lawful purpose for which the Data Principal has given consent or for certain legitimate uses.
+3. Every request for consent shall be accompanied or preceded by a notice describing the personal data and the purpose of processing.
+4. The Data Fiduciary shall give the Data Principal the option to access the notice in English or any language specified in the Eighth Schedule to the Constitution.
+5. Consent shall be free, specific, informed, unconditional and unambiguous with a clear affirmative action.
+6. A Data Fiduciary shall enable the Data Principal to withdraw consent at any time, with the ease of doing so comparable to the ease with which consent was given.
+7. A Data Fiduciary shall protect personal data by taking reasonable security safeguards to prevent personal data breach.
+8. In the event of a personal data breach, the Data Fiduciary shall intimate the Data Protection Board and each affected Data Principal.
+9. A Data Fiduciary shall erase personal data when the purpose is no longer being served or consent is withdrawn, unless retention is necessary for compliance with any law.
+10. A Data Fiduciary shall publish the business contact information of a person who is able to answer questions of the Data Principal about the processing of personal data.
+11. Before processing personal data of a child, a Data Fiduciary shall obtain verifiable consent of the parent or lawful guardian.
+12. A Data Fiduciary shall not undertake tracking, behavioural monitoring or targeted advertising directed at children.
+CHAPTER III Significant Data Fiduciary
+13. A Significant Data Fiduciary shall appoint a Data Protection Officer based in India.
+14. A Significant Data Fiduciary shall undertake a periodic Data Protection Impact Assessment and an independent data audit.
+CHAPTER IV Rights of Data Principal
+15. A Data Fiduciary shall, on request, provide the Data Principal with information about the personal data processed and the processing activities.
+16. A Data Fiduciary shall give effect to a request of the Data Principal for correction, completion, updating and erasure of personal data.
+CHAPTER V Data Protection Board
+17. The Central Government shall establish the Data Protection Board of India.

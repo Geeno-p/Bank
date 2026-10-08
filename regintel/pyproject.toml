@@ -4,50 +4,19 @@ version = "0.1.0"
 description = "Agentic regulatory compliance intelligence (ET AI Hackathon)"
 requires-python = ">=3.11"
 dependencies = [
-  # core
-  "pydantic>=2.7",
-  "pydantic-settings>=2.3",
-  "pyyaml>=6.0",
-  "rich>=13.7",
-  "typer>=0.12",
-  # data / synthetic
-  "pandas>=2.2",
-  "faker>=25.0",
-  "python-docx>=1.1",
-  "reportlab>=4.2",
-  # parsing
-  "docling>=2.0",
-  "pymupdf>=1.24",
-  # storage
-  "neo4j>=5.20",
-  "langgraph-checkpoint-sqlite>=2.0",
-  # "psycopg[binary]>=3.1",
-  # retrieval
-  "sentence-transformers>=3.0",
-  "FlagEmbedding>=1.2",
-  "rank-bm25>=0.2.2",
-  "scipy>=1.13",
-  # LLM + agents
-  "openai>=1.40",
-  "anthropic>=0.34",
-  "instructor>=1.4",
-  "langgraph>=0.2",
-  # "langgraph-checkpoint-postgres>=2.0",
-  "langfuse>=2.40",
-  "jinja2>=3.1",
-  # api / ui / ops
-  "fastapi>=0.111",
-  "uvicorn[standard]>=0.30",
-  "streamlit>=1.37",
-  "apscheduler>=3.10",
+  "pydantic>=2.7", "pydantic-settings>=2.3", "pyyaml>=6.0", "rich>=13.7", "typer>=0.12",
+  "pandas>=2.2", "numpy", "scipy>=1.13", "rank-bm25>=0.2.2", "python-docx>=1.1",
+  "neo4j>=5.20", "openai>=1.40", "instructor>=1.4",
+  "langgraph>=0.2", "langgraph-checkpoint-sqlite>=2.0",
+  "streamlit>=1.40", "apscheduler>=3.10,<4",
 ]
 
 [project.optional-dependencies]
-postgres = ["psycopg[binary]>=3.1", "langgraph-checkpoint-postgres>=2.0"]
-sandbox = ["e2b-code-interpreter>=1.0"]
-guard = ["presidio-analyzer>=2.2", "presidio-anonymizer>=2.2"]
-eval = ["deepeval>=1.0"]
-dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "ruff>=0.5"]
+ml        = ["docling>=2.0", "pymupdf>=1.24", "sentence-transformers>=3.0"]
+mcp       = ["mcp>=1.6"]
+anthropic = ["anthropic>=0.34"]
+postgres  = ["psycopg[binary]>=3.1", "langgraph-checkpoint-postgres>=2.0"]
+dev       = ["pytest>=8.0", "ruff>=0.5"]
 
 [build-system]
 requires = ["hatchling"]

@@ -1,0 +1,27 @@
+Know Your Customer (KYC) and Anti-Money Laundering Policy
+Bharat Unity Bank Ltd.
+1. Purpose and Scope
+1.1 This Policy sets out the Know Your Customer (KYC), Anti-Money Laundering (AML) and Combating the Financing of Terrorism (CFT) standards of Bharat Unity Bank Ltd. (the Bank).
+1.2 This Policy applies to all business units, branches and channels of the Bank, including digital and video-based onboarding.
+2. Definitions
+2.1 Officially Valid Document (OVD) has the meaning assigned to it in the applicable directions of the Reserve Bank of India.
+2.2 Principal Officer means the officer nominated by the Bank to furnish information to the Financial Intelligence Unit - India (FIU-IND).
+3. Governance
+3.1 Board approval and annual review of KYC Policy [KYC-C01]. This Policy shall be approved by the Board of Directors and reviewed at least annually, or earlier upon any material regulatory change. Control owner: Chief Compliance Officer. Frequency: Annual.
+3.2 Designated Director and Principal Officer [KYC-C02]. The Bank shall nominate a Designated Director and a Principal Officer and communicate their names, designation and contact details to FIU-IND, including upon any change. Control owner: Chief Compliance Officer. Frequency: Event Driven.
+4. Customer Acceptance
+4.1 No anonymous or fictitious accounts [KYC-C03]. No account shall be opened in an anonymous or fictitious name. The Core Banking System shall block account activation unless the customer's OVD has been verified. Control owner: Head of Retail Operations. Frequency: Continuous.
+4.2 V-CIP conduct standards [KYC-C04]. Video-based Customer Identification Process (V-CIP) sessions shall be conducted only by trained officials of the Bank, recorded end-to-end, geo-tagged and subjected to a liveness check before the account is activated. Control owner: Head of Digital Banking. Frequency: Event Driven.
+5. Customer Identification
+5.1 Identity verification at onboarding [KYC-C05]. At onboarding, the identity and address of every individual customer shall be verified using an OVD or Aadhaar-based e-KYC authentication, and the outcome shall be recorded in the onboarding system. Control owner: Head of Retail Operations. Frequency: Event Driven.
+5.2 Beneficial owner identification [KYC-C06]. For customers that are legal entities, the Bank shall identify the beneficial owner(s) as per the thresholds prescribed under the PML Rules and take reasonable measures to verify their identity. The Relationship Manager shall record a beneficial ownership attestation for each such customer. Control owner: Head of SME Banking. Frequency: Event Driven.
+5.3 Sanctions screening before activation [KYC-C07]. Before any account is activated, the customer's name shall be screened against the UNSC sanctions lists and the lists of individuals and entities designated under the Unlawful Activities (Prevention) Act, 1967. Activation shall not proceed until screening is cleared. Control owner: Head of AML Operations. Frequency: Event Driven.
+6. Risk Categorisation and Ongoing Due Diligence
+6.1 Customer risk categorisation [KYC-C08]. Every customer shall be assigned a risk category of Low, Medium or High at onboarding based on customer profile, geography, product and channel, and the category shall be reviewed upon any trigger event. Control owner: Chief Compliance Officer. Frequency: Event Driven.
+6.2 Periodic KYC updation - High risk [KYC-C09]. Periodic updation of KYC shall be carried out at least once every two years for High risk customers. Control owner: Head of KYC Operations. Frequency: Biennial.
+6.3 Periodic KYC updation - Medium risk [KYC-C10]. Periodic updation of KYC shall be carried out at least once every ten years for Medium risk customers. Control owner: Head of KYC Operations.
+6.4 Periodic KYC updation - Low risk [KYC-C11]. Periodic updation of KYC shall be carried out at least once every ten years for Low risk customers. Control owner: Head of KYC Operations.
+6.5 Alert review and STR filing [KYC-C12]. Transaction monitoring alerts shall be reviewed by AML Operations, and where a transaction is determined to be suspicious, a Suspicious Transaction Report (STR) shall be furnished to FIU-IND within seven working days of such determination. Control owner: Principal Officer. Frequency: Event Driven.
+7. Reporting and Record Keeping
+7.1 Cash Transaction Reports [KYC-C13]. Cash Transaction Reports (CTR) shall be furnished to FIU-IND for every month by the 15th day of the succeeding month. Control owner: Principal Officer. Frequency: Monthly.
+7.2 Record preservation - five years [KYC-C14]. Records of all transactions and of customer identification, including KYC documents and account files, shall be preserved for at least five years after the business relationship has ended or the account has been closed, whichever is later. Control owner: Head of Operations. Frequency: Continuous.

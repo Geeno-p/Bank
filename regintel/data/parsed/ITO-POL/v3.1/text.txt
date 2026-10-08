@@ -1,0 +1,18 @@
+IT Outsourcing and Third-Party Risk Policy
+Bharat Unity Bank Ltd.
+1. Purpose and Scope
+1.1 This Policy governs all arrangements under which the Bank uses third-party service providers for information technology services, including cloud services.
+2. Governance
+2.1 Board policy and IT Strategy Committee oversight [ITO-C01]. The Board shall approve this Policy, and the IT Strategy Committee shall oversee all IT outsourcing arrangements and review this Policy at least annually. Control owner: Chief Information Officer. Frequency: Annual.
+3. Onboarding of Service Providers
+3.1 Materiality assessment and register [ITO-C02]. Each IT outsourcing arrangement shall be assessed for materiality before onboarding, and all arrangements shall be recorded in the Outsourcing Register with their materiality classification. Control owner: Head of Vendor Management. Frequency: Event Driven.
+3.2 Service provider due diligence [ITO-C03]. Before entering into an arrangement, the Bank shall conduct due diligence on the service provider covering financial soundness, technical capability, reputation and information security posture. Control owner: Head of Vendor Management. Frequency: Event Driven.
+4. Contractual Requirements
+4.1 Audit and access rights in contracts [ITO-C04]. Every outsourcing agreement shall provide for the right of the Bank and the Reserve Bank of India, or persons authorised by them, to access and audit the service provider, together with clauses on confidentiality, sub-contracting and termination. Control owner: Head of Legal. Frequency: Event Driven.
+5. Ongoing Monitoring
+5.1 Annual risk assessment of material providers [ITO-C05]. Material service providers shall be subjected to a risk assessment at least annually, and the results shall be reported to the IT Strategy Committee. Control owner: Head of Vendor Management. Frequency: Annual.
+5.2 Quarterly review of service-provider privileged access [ITO-C06]. Privileged access granted to service-provider personnel on Bank systems shall be reviewed every quarter, and access that is no longer required shall be revoked. Control owner: Chief Information Security Officer. Frequency: Quarterly.
+5.3 Concentration risk monitoring [ITO-C07]. Concentration risk arising from reliance on a single service provider shall be monitored and reported to the IT Strategy Committee every six months. Control owner: Chief Information Officer. Frequency: Semi Annual.
+6. Business Continuity and Exit
+6.1 Joint DR drill with material providers [ITO-C08]. For each material outsourcing arrangement, the Bank shall maintain a Business Continuity and Disaster Recovery plan with the service provider and conduct a joint disaster recovery drill at least annually. Control owner: Head of IT Infrastructure. Frequency: Annual.
+6.2 Exit strategy [ITO-C09]. A documented exit strategy, including transition arrangements, shall be maintained for every material outsourcing arrangement. Control owner: Head of Vendor Management. Frequency: Annual.

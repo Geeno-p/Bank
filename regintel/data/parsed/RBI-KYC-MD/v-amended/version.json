@@ -1,0 +1,13 @@
+{
+  "valid_from": "2025-07-01",
+  "valid_to": null,
+  "recorded_at": "2026-10-08T04:40:35.179605Z",
+  "scenario_id": null,
+  "id": "VER-3081a6fc4928",
+  "doc_id": "RBI-KYC-MD",
+  "doc_type": "REGULATION",
+  "version_label": "v-amended",
+  "effective_date": "2025-07-01",
+  "source_path": "C:\\Users\\geeno.perumal\\Downloads\\Bank\\regintel\\data\\regulations\\RBI-KYC-MD\\v-amended\\raw.docx",
+  "sha256": "ed48dcff053fecd8f5b024724ea48cc4be866a9b854082b40bbcd6000685bc44"
+}

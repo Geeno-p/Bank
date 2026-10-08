@@ -1,0 +1,5 @@
+[server]
+fileWatcherType = "none"      # avoids a known Streamlit + PyTorch file-watcher error
+
+[theme]
+primaryColor = "#0B5394"

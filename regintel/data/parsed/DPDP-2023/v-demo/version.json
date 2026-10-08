@@ -1,0 +1,13 @@
+{
+  "valid_from": "2024-04-01",
+  "valid_to": null,
+  "recorded_at": "2026-10-07T17:43:09.403857Z",
+  "scenario_id": null,
+  "id": "VER-cb5f3796c803",
+  "doc_id": "DPDP-2023",
+  "doc_type": "REGULATION",
+  "version_label": "v-demo",
+  "effective_date": "2024-04-01",
+  "source_path": "C:\\Users\\geeno.perumal\\Downloads\\Bank\\regintel\\data\\regulations\\DPDP-2023\\v-demo\\raw.docx",
+  "sha256": "5b895e516811344f12092bfe260ba00f1ae09f000eb9b9bd9e7e63bfdcf888cd"
+}

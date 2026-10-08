@@ -33,6 +33,18 @@ def _model():
 def default_embed(texts: list[str]) -> np.ndarray:
     return np.asarray(_model().encode(texts, normalize_embeddings=True, batch_size=32))
 
+def resolve_embed() -> EmbedFn | None:
+    """auto: local BGE if sentence-transformers is installed, else None (BM25 + topic only)."""
+    backend = get_settings().embedding_backend.lower()
+    if backend == "none":
+        return None
+    try:
+        import sentence_transformers  # noqa: F401
+    except ImportError:
+        if backend == "local":
+            raise
+        return None
+    return default_embed
 
 def control_text(c: Control) -> str:
     params = " ".join(f"{p.name} {p.value} {p.unit or ''}" for p in c.parameters)
@@ -61,20 +73,19 @@ class Candidate:
 class ControlIndex:
     def __init__(self, controls: list[Control], embed: EmbedFn | None = None) -> None:
         self.controls = list(controls)
-        self.embed = embed or default_embed
+        self.embed = embed if embed is not None else resolve_embed()
         docs = [control_text(c) for c in self.controls]
         self.bm25 = BM25Okapi([tokens(d) or ["_"] for d in docs])
-        self.vecs = self.embed(docs)
+        self.vecs = self.embed(docs) if self.embed else None
 
     def search(self, o: Obligation, k: int = 6, topic_bonus: float = 0.5) -> list[Candidate]:
         q = obligation_text(o)
         bm_rank = _ranks(self.bm25.get_scores(tokens(q) or ["_"]))
-        dn_rank = _ranks(self.vecs @ self.embed([QUERY_PREFIX + q])[0])
-        topics = set(o.topics)
-        out = []
+        dn_rank = _ranks(self.vecs @ self.embed([QUERY_PREFIX + q])[0]) if self.embed else None
+        topics, out = set(o.topics), []
         for i, c in enumerate(self.controls):
-            s = 1 / (RRF_K + bm_rank[i]) + 1 / (RRF_K + dn_rank[i])
+            s = 1 / (RRF_K + bm_rank[i]) + (1 / (RRF_K + dn_rank[i]) if dn_rank is not None else 0.0)
             if topics & set(c.topics):
                 s += topic_bonus / RRF_K
-            out.append(Candidate(c, round(s, 5), int(bm_rank[i]), int(dn_rank[i])))
+            out.append(Candidate(c, round(s, 5), int(bm_rank[i]), int(dn_rank[i]) if dn_rank is not None else -1))
         return sorted(out, key=lambda x: -x.score)[:k]

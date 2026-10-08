@@ -1,0 +1,18 @@
+Outsourcing of IT Services Directions - Demo Excerpt
+SYNTHETIC DEMO EXCERPT: paraphrased for a hackathon demonstration. Not the official text; clause numbering is illustrative. Verify against the official publication.
+CHAPTER I Governance
+1. Every RE shall put in place a Board approved policy on IT outsourcing.
+2. The IT Strategy Committee of the RE shall exercise oversight of all IT outsourcing arrangements.
+CHAPTER II Engagement of Service Providers
+3. The RE shall assess the materiality of each outsourcing arrangement before entering into it.
+4. The RE shall maintain an inventory of all outsourced IT services.
+5. The RE shall carry out due diligence of the service provider before outsourcing.
+6. The RE shall ensure that the agreement provides access and audit rights to the regulated entity and to the RBI.
+7. The RE shall ensure that the agreement covers confidentiality, sub-contracting and termination.
+CHAPTER III Monitoring
+8. The RE shall undertake periodic risk assessment and performance monitoring of service providers.
+9. The RE shall put in place controls over service provider access to regulated entity systems and data.
+10. The RE shall monitor the concentration risk of service providers.
+CHAPTER IV Business Continuity and Exit
+11. The RE shall ensure that a business continuity and disaster recovery plan with the service provider is in place and periodically tested.
+12. The RE shall have an exit strategy for outsourcing arrangements.

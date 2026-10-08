@@ -1,0 +1,13 @@
+{
+  "valid_from": "2024-04-01",
+  "valid_to": null,
+  "recorded_at": "2026-10-07T17:43:09.602930Z",
+  "scenario_id": null,
+  "id": "VER-e77f7a6d5939",
+  "doc_id": "RBI-ITO-2023",
+  "doc_type": "REGULATION",
+  "version_label": "v-demo",
+  "effective_date": "2024-04-01",
+  "source_path": "C:\\Users\\geeno.perumal\\Downloads\\Bank\\regintel\\data\\regulations\\RBI-ITO-2023\\v-demo\\raw.docx",
+  "sha256": "cea44857f2ad6109187afc7a5181ec160ea10ddbe628f360e0dc1340a783f2fc"
+}

@@ -6,8 +6,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-
 class Settings(BaseSettings):
+    embedding_backend: str = "auto"      # auto | local | none
+    kg_write_default: bool = True
     model_config = SettingsConfigDict(
         env_file=PROJECT_ROOT / ".env", env_file_encoding="utf-8", extra="ignore"
     )
