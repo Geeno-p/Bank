@@ -38,6 +38,7 @@ class Gap(Temporal):
     risk: RiskScore | None = None
     status: GapStatus = GapStatus.OPEN
     provenance: Provenance
+    metrics: dict[str, float] = Field(default_factory=dict)   # e.g. exposure at the regulatory threshold
 
 
 class ActionType(StrEnum):
@@ -73,4 +74,6 @@ class Remediation(Temporal):
     rationale: str
     expected_residual_band: RiskBand
     status: str = "PROPOSED"
+    issues: list[str] = Field(default_factory=list)     # checks still failing after revision
+    revised: bool = False
     provenance: Provenance

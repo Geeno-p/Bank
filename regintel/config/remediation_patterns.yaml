@@ -1,0 +1,39 @@
+sla_days: {CRITICAL: 30, HIGH: 60, MEDIUM: 90, LOW: 180}   # used when the obligation is already in force
+patterns:
+  UNMAPPED:
+    required: [NEW_CONTROL]
+    allowed: [NEW_CONTROL, POLICY_UPDATE, PROCESS_CHANGE, SYSTEM_CHANGE, TRAINING, EVIDENCE_COLLECTION]
+    guidance: >-
+      No control addresses the obligation. Design a new control (objective, owner, frequency, evidence)
+      and add it to the most relevant policy. Give the exact control wording in draft_text.
+  PARTIAL_COVERAGE:
+    required: [CONTROL_ENHANCEMENT, POLICY_UPDATE]
+    allowed: [CONTROL_ENHANCEMENT, POLICY_UPDATE, PROCESS_CHANGE, SYSTEM_CHANGE, TRAINING]
+    guidance: >-
+      The control exists but misses elements listed in the gap description. Close each missing element
+      explicitly (e.g. add the missing recipient, scope or step) and update the policy wording.
+  DESIGN_GAP:
+    required: [POLICY_UPDATE]
+    allowed: [POLICY_UPDATE, CONTROL_ENHANCEMENT, SYSTEM_CHANGE, PROCESS_CHANGE, TRAINING]
+    guidance: >-
+      The control design contradicts the regulation (e.g. a longer period). Amend the policy wording to state
+      the regulatory parameter exactly. If an exposure is reported, add a PROCESS_CHANGE action to clear the
+      backlog of non-compliant records before the deadline, and a SYSTEM_CHANGE if triggers or rules must change.
+  OPERATING_FAILURE:
+    required: [PROCESS_CHANGE, SYSTEM_CHANGE]
+    allowed: [PROCESS_CHANGE, SYSTEM_CHANGE, CONTROL_ENHANCEMENT, TRAINING, EVIDENCE_COLLECTION]
+    guidance: >-
+      The design is adequate but the control did not operate (exceptions above tolerance). Fix the root cause
+      in the process or system, remediate the exceptions found, and add monitoring so it is caught earlier.
+  MISSING_EVIDENCE:
+    required: [EVIDENCE_COLLECTION]
+    allowed: [EVIDENCE_COLLECTION, PROCESS_CHANGE, SYSTEM_CHANGE, TRAINING]
+    guidance: >-
+      The control may operate but there is no proof. Define which records must be produced, by whom, how often
+      and where they are stored; collect evidence for the current period.
+  STALE_CONTROL:
+    required: [POLICY_UPDATE]
+    allowed: [POLICY_UPDATE, CONTROL_ENHANCEMENT, TRAINING]
+    guidance: >-
+      The control design has not been reviewed within its cycle. Review and re-approve it against the current
+      regulation, replacing outdated references, and record the review.

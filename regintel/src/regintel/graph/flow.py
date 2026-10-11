@@ -30,6 +30,8 @@ from regintel.schemas.gap import Gap
 from regintel.schemas.mapping import ControlMapping, ObligationCoverage
 from regintel.schemas.obligation import ApplicabilityDecision, Obligation
 from regintel.settings import get_settings
+from regintel.agents import impact as imp
+from regintel.agents import remediation as rem
 
 REVIEW_BANDS = {RiskBand.CRITICAL, RiskBand.HIGH}
 ROUTES = {"NEW_VERSION": "ingest", "EVIDENCE_UPLOADED": "assess", "SCHEDULED_TEST": "assess"}
@@ -56,7 +58,10 @@ class FlowState(TypedDict, total=False):
     status: str
     trace: Annotated[list[dict[str, Any]], operator.add]
     closed_gap_ids: list[str]
-
+    impact_report_id: str
+    impact_issues: list[str]
+    remediation_ids: list[str]
+    remediation_issues: list[str]
 
 def step(name: str):
     """Times each node, appends a trace entry and writes an audit record."""
@@ -181,7 +186,35 @@ def assess_node(s: FlowState) -> dict:
     return {"impacted_gap_ids": [g.id for g in impacted], "review_ids": review, "closed_gap_ids": closed,
             "_info": f"{len(gaps)} gaps | closed {len(closed)} | impacted {len(impacted)}: " +
                      "; ".join(f"{g.risk.band.value} {g.gap_type.value} {g.control_id or '-'}" for g in impacted[:5])}
-    
+
+
+@step("impact")
+def impact_node(s: FlowState) -> dict:
+    if not s.get("change_event_id") or not s.get("material"):
+        return {"_info": "skipped (no material regulatory change)"}
+    new_ver, _, _ = chg.load_version(s["doc_id"], s["to_version"])
+    r = imp.build_report(imp.load_event(s["change_event_id"]), new_ver,
+                         imp.current_state(s["doc_id"], s.get("from_version"), s["to_version"]),
+                         as_of_from(load_manifest()), s["run_id"])
+    r = imp.write_narrative(r)
+    imp.save(r)
+    t = r.totals
+    return {"impact_report_id": r.id, "impact_issues": r.issues,
+            "_info": f"{t['material_changes']} change(s) | controls {t['controls']} | owners {r.owners} | "
+                     f"gaps {t['gaps']} (high+ {t['high_or_critical_gaps']}) | "
+                     f"narrative {'✓' if r.narrative else '✗'} | issues {len(r.issues)}"}
+
+@step("remediate")
+def remediate_node(s: FlowState) -> dict:
+    ids = set(s.get("review_ids", []))
+    if not ids:
+        return {"_info": "skipped (no HIGH/CRITICAL impacted gaps)"}
+    rs = rem.propose([g for g in load_extracted("gaps", Gap) if g.id in ids], rem.load_ctx(), s["run_id"])
+    rem.save(rs)
+    rem.queue(rs, s["run_id"])
+    issues = [f"REMEDIATION_CHECKS_FAILED {r.gap_id}: {'; '.join(r.issues)[:150]}" for r in rs if r.issues]
+    return {"remediation_ids": [r.id for r in rs], "remediation_issues": issues,
+            "_info": f"{len(rs)} plan(s) | revised {sum(r.revised for r in rs)} | checks failed {len(issues)}"}
 
 @step("critic")
 def critic_node(s: FlowState) -> dict:
@@ -195,6 +228,8 @@ def critic_node(s: FlowState) -> dict:
                    if m.obligation_id in new and m.confidence <= map_ag.UNVERIFIED_CAP]
     gaps = {g.id: g for g in load_extracted("gaps", Gap)}
     issues += [f"NO_RISK_SCORE {gid}" for gid in s.get("impacted_gap_ids", []) if gid in gaps and not gaps[gid].risk]
+    issues += s.get("impact_issues", [])
+    issues += s.get("remediation_issues", [])
     return {"issues": issues, "_info": f"{len(issues)} issue(s)" + (f": {issues[:3]}" if issues else "")}
 
 
@@ -204,10 +239,13 @@ def hitl_node(s: FlowState) -> dict:
         decision = {"action": "approve", "reviewer": "auto", "notes": "auto-approved (demo flag)"}
     else:
         gaps = {g.id: g for g in load_extracted("gaps", Gap)}
-        decision = interrupt({"run_id": s["run_id"], "issues": s.get("issues", []), "review": [
-            {"gap_id": gid, "band": gaps[gid].risk.band.value, "title": gaps[gid].title,
-             "detail": gaps[gid].description[:220]} for gid in s.get("review_ids", []) if gid in gaps]})
+        decision = interrupt({"run_id": s["run_id"], "issues": s.get("issues", []),
+                              "impact": imp.brief_of(s.get("impact_report_id")), "remediations": rem.briefs(s.get("remediation_ids")), "review": [
+                              {"gap_id": gid, "band": gaps[gid].risk.band.value, "title": gaps[gid].title,
+                              "detail": gaps[gid].description[:220]} for gid in s.get("review_ids", []) if gid in gaps]})
     approved = decision.get("action") == "approve"
+    rem.set_status(s.get("remediation_ids", []), "APPROVED" if approved else "REJECTED",
+                   decision.get("reviewer"), decision.get("notes"))
     status = "APPROVED" if approved else "REJECTED"
     with get_conn() as c:
         c.executemany("UPDATE review_queue SET status=?, reviewer=?, decision_notes=? "
@@ -231,8 +269,12 @@ def commit_node(s: FlowState) -> dict:
             map_ag._to_kg(load_extracted("mappings", ControlMapping), load_extracted("coverage", ObligationCoverage))
             gap_ag._to_kg(load_manifest(), [(None, r) for r in load_extracted("test_results", ControlTestResult)],
                           load_extracted("gaps", Gap))
+            if s.get("impact_report_id") and (r := imp.load_report_by_id(s["impact_report_id"])):
+                imp._to_kg(r)
+            if ids := set(s.get("remediation_ids", [])):
+                rem._to_kg([r for r in rem.load_all() if r.id in ids])
     summary = {k: s.get(k) for k in ("change_event_id", "new_obligation_ids", "impacted_gap_ids",
-                                     "review_ids", "issues", "decision")} | {"trace": s.get("trace", [])}
+                                     "review_ids", "issues", "decision", "impact_report_id","remediation_ids")} | {"trace": s.get("trace", [])}
     with get_conn() as c:
         c.execute("UPDATE runs SET status=?, finished_at=?, summary=? WHERE run_id=?",
                   (status, utcnow().isoformat(), json.dumps(summary, default=str), s["run_id"]))
@@ -254,7 +296,7 @@ def after_critic(s: FlowState) -> str:
 
 NODES = {"router": router, "ingest": ingest_node, "change": change_node, "applicability": applicability_node,
          "map_new": map_node, "assess": assess_node, "critic": critic_node, "hitl": hitl_node,
-         "commit": commit_node}
+         "commit": commit_node, "impact": impact_node, "remediate": remediate_node} 
 
 
 def build(checkpointer=None):
@@ -267,7 +309,9 @@ def build(checkpointer=None):
     g.add_conditional_edges("change", after_change, {"applicability": "applicability", "commit": "commit"})
     g.add_edge("applicability", "map_new")
     g.add_edge("map_new", "assess")
-    g.add_edge("assess", "critic")
+    g.add_edge("assess", "impact")
+    g.add_edge("impact", "remediate")
+    g.add_edge("remediate", "critic")
     g.add_conditional_edges("critic", after_critic, {"hitl": "hitl", "commit": "commit"})
     g.add_edge("hitl", "commit")
     g.add_edge("commit", END)

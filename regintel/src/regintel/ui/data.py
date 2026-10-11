@@ -16,10 +16,11 @@ from regintel.schemas.gap import Gap
 from regintel.schemas.mapping import ControlMapping, ObligationCoverage
 from regintel.schemas.obligation import ApplicabilityDecision, Obligation
 from regintel.settings import get_settings
+from regintel.schemas.gap import Remediation
 
 MODELS = {"obligations": Obligation, "controls": Control, "mappings": ControlMapping,
           "coverage": ObligationCoverage, "applicability": ApplicabilityDecision, "gaps": Gap,
-          "test_results": ControlTestResult}
+          "test_results": ControlTestResult, "remediations": Remediation}
 MARKUP = re.compile(r"\[/?[a-z ]*\]")
 
 

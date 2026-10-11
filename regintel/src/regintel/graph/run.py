@@ -23,6 +23,13 @@ def show(snap: dict) -> None:
     con.print(t)
     if snap["status"] == "PAUSED":
         con.print("[bold yellow]⏸ Paused for human review[/]")
+        if imp := snap["review"].get("impact"):
+            con.print(f"  [bold cyan]Impact:[/] {imp['headline']}\n    {imp['summary'][:300]}")
+            for e in imp["exposure"]:
+                con.print(f"    exposure: {e}")
+        for rp in snap["review"].get("remediations", []):
+            con.print(f"  [bold green]Remediation[/] {rp['gap_id']} → residual {rp['residual_band']}: " +
+                      "; ".join(f"{a['type']} ({a['owner']}, {a['due_in_days']}d)" for a in rp["actions"]))
         for r in snap["review"].get("review", []):
             con.print(f"  [bold]{r['band']}[/] {r['gap_id']}: {r['title']}\n    {r['detail']}")
         for i in snap["review"].get("issues", []):

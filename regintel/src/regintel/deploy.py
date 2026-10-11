@@ -55,6 +55,7 @@ def sync_kg() -> None:
     from regintel.schemas.mapping import ControlMapping, ObligationCoverage
     from regintel.schemas.obligation import ApplicabilityDecision, Obligation
 
+
     print(f"target: {get_settings().neo4j_uri}")
     kg_load.main()                                          # bank, regulations, policies, versions, clauses
     obls = load_extracted("obligations", Obligation)
@@ -70,7 +71,13 @@ def sync_kg() -> None:
     map_ag._to_kg(load_extracted("mappings", ControlMapping), load_extracted("coverage", ObligationCoverage))
     gap_ag._to_kg(load_manifest(), [(None, r) for r in load_extracted("test_results", ControlTestResult)],
                   load_extracted("gaps", Gap))
+    from regintel.agents import impact as imp
+    for r in imp.load_reports():
+        imp._to_kg(r)
     print("✓ knowledge graph synced")
+    from regintel.agents import remediation as rem
+    if rs := rem.load_all():
+        rem._to_kg(rs)
 
 
 if __name__ == "__main__":

@@ -17,6 +17,8 @@ from regintel.schemas.mapping import ControlMapping, ObligationCoverage
 from regintel.schemas.obligation import ApplicabilityDecision, Obligation
 from regintel.settings import get_settings
 from regintel.kg import graph_tools as gt
+from regintel.agents import impact as imp 
+from regintel.agents import remediation as rem 
 
 def _sql(q: str, *args) -> list[dict]:
     init_db()
@@ -154,13 +156,32 @@ def get_kris() -> list[dict]:
                 "JOIN (SELECT kri_id, MAX(id) AS id FROM kri_snapshots GROUP BY kri_id) m ON k.id = m.id")
 
 
-TOOLS: dict[str, Any] = {f.__name__: f for f in (
-    overview, search_obligations, get_gaps, get_traceability, get_control, explain_risk, get_changes,
-    get_runs, get_kris, gt.graph_schema, gt.impact_of_clause, gt.shared_controls,
-    gt.coverage_if_control_removed, gt.obligation_history, gt.ask_graph, gt.run_cypher)}
+
 
 
 def describe(tools: dict[str, Any] | None = None) -> str:
     """Tool list for prompts: name(signature): docstring."""
     tools = tools or TOOLS
     return "\n".join(f"- {n}{inspect.signature(f)}: {' '.join((f.__doc__ or '').split())}" for n, f in tools.items())
+
+
+def get_impact(regulation_id: str = "") -> list[dict]:
+    """Impact reports for detected regulatory changes: affected controls, owners, systems, customer exposure,
+    gaps, and an executive summary with recommended next steps."""
+    return [imp.brief(r) | {"changes": [{"clause": c.clause_ref, "type": c.change_type.value,
+                                         "controls": [x.control_id for x in c.controls],
+                                         "also_covers": sorted({o for x in c.controls for o in x.also_covers}),
+                                         "gaps": [g.gap_id for g in c.gaps]} for c in r.changes]}
+            for r in imp.load_reports() if not regulation_id or r.regulation_id == regulation_id]
+
+def get_remediation(gap_id: str = "", status: str = "") -> list[dict]:
+    """Remediation plans for gaps: actions (type, owner, due days, effort), draft policy wording, expected residual
+    risk, status (PROPOSED / APPROVED / REJECTED / CHECKS_FAILED) and any failed checks."""
+    return [rem.brief(r) for r in rem.load_all()
+            if (not gap_id or r.gap_id == gap_id) and (not status or r.status == status.upper())]
+
+
+TOOLS: dict[str, Any] = {f.__name__: f for f in (
+    overview, search_obligations, get_gaps, get_traceability, get_control, explain_risk, get_remediation, get_changes,
+    get_runs, get_kris, gt.graph_schema, gt.impact_of_clause, gt.shared_controls,
+    gt.coverage_if_control_removed, gt.obligation_history, gt.ask_graph, gt.run_cypher, get_impact)}

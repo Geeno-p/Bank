@@ -30,4 +30,4 @@ def test_step_limit_forces_answer(monkeypatch):
 
 def test_describe_lists_all_tools():
     d = describe(TOOLS)
-    assert all(name in d for name in TOOLS) and len(TOOLS) == 16
+    assert all(name in d for name in TOOLS) and len(TOOLS) == 18

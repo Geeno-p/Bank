@@ -38,6 +38,8 @@ Rules:
   'Human review' or 'Agent runs' page.
 - If tools return nothing relevant, say so honestly.
 - When you have enough, set action='final' and write a concise markdown answer (bullets welcome).
+- get_impact gives the full impact report of a regulatory change (prefer it for "what is the impact" questions).
+- get_remediation answers "how do we fix / close gap X" (show owners, due days and draft wording).
 Respond with one step: thought, action, args, answer."""
 
 

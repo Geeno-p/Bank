@@ -14,7 +14,7 @@ from regintel.schemas.regulation import Clause, DocVersion, Regulation
 from regintel.settings import get_settings
 
 LABELS = ["Regulation", "Policy", "DocVersion", "Clause", "Obligation", "Control", "Topic", "BankEntity",
-          "Product", "Role", "System", "Evidence", "TestResult", "Gap", "ChangeEvent"]
+          "Product", "Role", "System", "Evidence", "TestResult", "Gap", "ChangeEvent", "ImpactReport","Remediation"]
 
 
 def props(m: BaseModel, exclude: set[str] | None = None) -> dict[str, Any]:

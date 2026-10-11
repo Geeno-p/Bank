@@ -118,6 +118,8 @@ def add_exposure(gaps: list[Gap], obls: list[Obligation], ctls: list[Control], m
                 g.evidence_refs.append(r.evidence_id)
                 linked = round((g.risk.factors.blast_radius - 1) / 0.2) if g.risk else 0
                 g.risk = score(g.gap_type, o, as_of, linked, r.exception_rate)
+                g.metrics = {"threshold_days": float(min(reg)), "exceptions": r.exceptions,
+                             "population": r.population, "exception_rate": r.exception_rate}
 
 
 # ---------- persistence + CLI ----------

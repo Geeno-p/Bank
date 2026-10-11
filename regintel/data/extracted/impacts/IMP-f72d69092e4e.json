@@ -1,0 +1,95 @@
+{
+  "id": "IMP-f72d69092e4e",
+  "change_event_id": "CHG-7124a1ffa232",
+  "regulation_id": "RBI-KYC-MD",
+  "from_version": "v-demo",
+  "to_version": "v-amended",
+  "effective_date": "2025-07-01",
+  "as_of": "2025-03-31",
+  "days_to_effective": 92,
+  "changes": [
+    {
+      "clause_ref": "12(a)",
+      "change_type": "TIGHTENED",
+      "changed_parameters": [
+        {
+          "name": "review frequency for high risk customers",
+          "old": "at least once in every two years",
+          "new": "at least once in every year"
+        }
+      ],
+      "summary": "The required review frequency for high-risk customers has been tightened from at least once every two years to at least once every year.",
+      "retired_obligation_ids": [
+        "OBL-269ea0bf3088"
+      ],
+      "new_obligation_ids": [
+        "OBL-8cc55b81030f",
+        "OBL-2e3ad4b8f26a"
+      ],
+      "controls": [
+        {
+          "control_id": "KYC-C09",
+          "name": "Periodic KYC Updation - High Risk",
+          "coverage": "PARTIAL",
+          "owner_role": "Head of KYC Operations",
+          "systems": [],
+          "evidence": [
+            "Customer periodic KYC updation register"
+          ],
+          "test": "37/1840 exceptions (threshold 730 days)",
+          "test_passed": true,
+          "also_covers": []
+        }
+      ],
+      "gaps": [
+        {
+          "gap_id": "GAP-0af02e02d12b",
+          "gap_type": "DESIGN_GAP",
+          "band": "HIGH",
+          "score": 0.616,
+          "title": "KYC-C09 only partially meets RBI-KYC-MD 12(a)"
+        },
+        {
+          "gap_id": "GAP-adbf002f08a5",
+          "gap_type": "DESIGN_GAP",
+          "band": "HIGH",
+          "score": 0.616,
+          "title": "KYC-C09 only partially meets RBI-KYC-MD 12(a)"
+        }
+      ]
+    }
+  ],
+  "owners": [
+    "Head of KYC Operations"
+  ],
+  "systems": [],
+  "exposure": [
+    "KYC-C09: 312/1840 (17.0%) non-compliant at the regulatory period of 365 days",
+    "KYC-C09: 312/1840 (17.0%) non-compliant at the regulatory period of 365 days"
+  ],
+  "totals": {
+    "material_changes": 1,
+    "new_obligations": 2,
+    "retired_obligations": 1,
+    "controls": 1,
+    "owners": 1,
+    "systems": 0,
+    "gaps": 2,
+    "high_or_critical_gaps": 2
+  },
+  "max_band": "HIGH",
+  "narrative": {
+    "headline": "RBI-KYC-MD 12(a) Tightens High-Risk Customer Review Frequency to Annually",
+    "executive_summary": "RBI-KYC-MD clause 12(a) has tightened the required review frequency for high-risk customers from at least once every two years to at least once every year, taking effect on 2025-07-01. This change impacts control KYC-C09 (Periodic KYC Updation - High Risk), owned by the Head of KYC Operations. Customer exposure indicates that 312 out of 1840 accounts (17.0%) are non-compliant at the regulatory period of 365 days. The risk involves two HIGH band design gaps (GAP-0af02e02d12b and GAP-adbf002f08a5) where KYC-C09 only partially meets the updated regulation.",
+    "key_risks": [
+      "KYC-C09 only partially meets RBI-KYC-MD 12(a), creating two HIGH band design gaps (GAP-0af02e02d12b and GAP-adbf002f08a5).",
+      "Customer exposure shows 312 out of 1840 accounts (17.0%) are non-compliant at the regulatory period of 365 days."
+    ],
+    "recommended_next_steps": [
+      "Head of KYC Operations: Address the partial coverage of KYC-C09 to align with the new annual review requirement under RBI-KYC-MD 12(a)."
+    ]
+  },
+  "issues": [],
+  "run_id": "RUN-4c89d85936",
+  "created_at": "2026-10-11T12:05:49.457368Z"
+}

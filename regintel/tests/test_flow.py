@@ -28,7 +28,7 @@ def _start(app, event, thread):
 
 
 def test_new_version_pauses_then_commits(monkeypatch):
-    for n in ("ingest", "applicability", "map_new", "critic"):
+    for n in ("ingest", "applicability", "map_new", "impact", "remediate", "critic"):
         _stub(monkeypatch, n)
     _stub(monkeypatch, "change", {"material": 1, "new_obligation_ids": ["O1"]})
     _stub(monkeypatch, "assess", {"review_ids": ["GAP-1"], "impacted_gap_ids": ["GAP-1"]})
@@ -38,7 +38,7 @@ def test_new_version_pauses_then_commits(monkeypatch):
     out = app.invoke(Command(resume={"action": "approve", "reviewer": "tester"}), cfg)
     assert out["status"] == "COMMITTED"
     assert [t["node"] for t in out["trace"]] == ["router", "ingest", "change", "applicability",
-                                                 "map_new", "assess", "critic", "hitl", "commit"]
+                                                 "map_new", "assess", "impact", "remediate", "critic","hitl", "commit"]
 
 
 def test_short_circuits(monkeypatch):

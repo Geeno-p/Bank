@@ -190,6 +190,22 @@ def review():
     for r, snap in paused:
         with st.container(border=True):
             st.markdown(f"**{r['run_id']}** · {r['event_type']} · started {r['started_at'][:19]}")
+            if imp := snap["review"].get("impact"):
+                st.markdown(f"**📌 Impact:** {imp['headline']}")
+                st.write(imp["summary"])
+                m = st.columns(4)
+                m[0].metric("Controls", imp["totals"].get("controls", 0))
+                m[1].metric("Owners", len(imp["owners"]))
+                m[2].metric("Systems", len(imp["systems"]))
+                m[3].metric("Days to effective", imp["days_to_effective"] if imp["days_to_effective"] is not None else "-")
+                for e in imp["exposure"]:
+                    st.caption(f"Exposure: {e}")
+            for rp in snap["review"].get("remediations", []):
+                with st.expander(f"🛠 Proposed remediation · {rp['gap_id']} · residual {rp['residual_band']}"):
+                    st.write(rp["rationale"])
+                    st.dataframe(pd.DataFrame(rp["actions"]), **WIDE)
+                    for i in rp["issues"]:
+                        st.error(i)
             for it in snap["review"].get("review", []):
                 st.warning(f"{ICON.get(it['band'], '')} **{it['band']}** {it['title']}\n\n{it['detail']}")
             for i in snap["review"].get("issues", []):
@@ -214,10 +230,13 @@ def review():
     pick = st.selectbox("Item", list(by), format_func=lambda i: f"{by[i]['item_type']} · {by[i]['item_id']}")
     it = by[pick]
     st.json(D.by_id("obligations").get(it["item_id"]) or D.by_id("mappings").get(it["item_id"])
-            or D.by_id("applicability", "obligation_id").get(it["item_id"]) or {}, expanded=False)
+            or D.by_id("applicability", "obligation_id").get(it["item_id"]) or {} or D.by_id("remediations").get(it["item_id"]), expanded=False)
     c1, c2 = st.columns(2)
     for col, status in ((c1, "APPROVED"), (c2, "REJECTED")):
         if col.button(status.title(), key=f"item-{status}", use_container_width=True):
+            if it["item_type"] == "remediation":
+                from regintel.agents import remediation as rem
+                rem.set_status([it["item_id"]], status, reviewer)
             D.sql("UPDATE review_queue SET status=?, reviewer=? WHERE id=?", status, reviewer, pick)
             audit(f"human:{reviewer}", status, "review_item", pick, {"item_id": it["item_id"]})
             flash(f"{it['item_type']} {it['item_id']} → {status}")
@@ -313,9 +332,67 @@ def monitoring():
 
 
 def phase6():
-    st.title("Remediation · Impact · Cross-regulation")
-    st.info("Coming in Phase 6: remediation recommendations per gap, autonomous impact analysis, "
-            "cross-regulation overlaps and contradiction detection (KYC retention vs DPDP erasure).")
+    from regintel.agents import impact as imp
+    st.title("Impact · Remediation · Cross-regulation")
+    t1, t2, t3 = st.tabs(["🎯 Impact analysis", "🛠 Remediation", "🔀 Cross-regulation"])
+    with t1:
+        reps = imp.load_reports()
+        if not reps:
+            st.info("No impact reports yet. Start a NEW_VERSION run on the Agent runs page.")
+        for r in reps:
+            n = r.narrative
+            with st.container(border=True):
+                st.subheader(n.headline if n else f"{r.regulation_id} change")
+                st.caption(f"{r.regulation_id} {r.from_version} → {r.to_version} · effective {r.effective_date} "
+                           f"({r.days_to_effective} days after evidence date {r.as_of}) · "
+                           f"max band {r.max_band.value if r.max_band else '-'}")
+                if n:
+                    st.write(n.executive_summary)
+                    a, b = st.columns(2)
+                    a.markdown("**Key risks**\n" + "\n".join(f"- {x}" for x in n.key_risks))
+                    b.markdown("**Next steps**\n" + "\n".join(f"- {x}" for x in n.recommended_next_steps))
+                cols = st.columns(len(r.totals))
+                for col, (k, v) in zip(cols, r.totals.items()):
+                    col.metric(k.replace("_", " "), v)
+                for e in r.exposure:
+                    st.warning(e)
+                rows = [{"clause": ch.clause_ref, "change": ch.change_type.value, "control": c.control_id,
+                         "coverage": c.coverage.value, "owner": c.owner_role, "systems": ", ".join(c.systems),
+                         "test": c.test, "also covers": ", ".join(c.also_covers)}
+                        for ch in r.changes for c in ch.controls]
+                if rows:
+                    st.dataframe(pd.DataFrame(rows), **WIDE)
+                for i in r.issues:
+                    st.error(i)
+    with t2:
+        from regintel.agents import remediation as rem
+        if st.button("Draft plans for HIGH/CRITICAL gaps without an approved plan", type="primary"):
+            with st.spinner("Remediation agent drafting... (free-tier calls are throttled)"):
+                rs = rem.run(kg=st.session_state.get("use_kg", True))
+            D.refresh()
+            flash(f"{len(rs)} plan(s) drafted" if rs else "Nothing to draft", "info")
+            st.rerun()
+        gaps = D.by_id("gaps")
+        plans = rem.load_all()
+        if not plans:
+            st.info("No remediation plans yet.")
+        for r in plans:
+            g = gaps.get(r.gap_id)
+            with st.container(border=True):
+                st.markdown(f"**{r.status}** · {g['title'] if g else r.gap_id} · "
+                            f"{band(g) if g else '-'} → residual **{r.expected_residual_band.value}**")
+                st.write(r.rationale)
+                st.dataframe(pd.DataFrame([{"type": a.action_type.value, "owner": a.owner_role,
+                                            "due (days)": a.due_in_days, "effort": a.effort,
+                                            "action": a.description} for a in r.actions]), **WIDE)
+                for a in r.actions:
+                    if a.draft_text:
+                        st.caption(f"Draft wording · {a.action_type.value}")
+                        st.code(a.draft_text, language=None)
+                for i in r.issues:
+                    st.error(i)
+    with t3:
+        st.info("Coming in 6D: cross-regulation overlaps and contradiction detection.")
 
 def copilot_page():
     from regintel.agents.copilot import ask
