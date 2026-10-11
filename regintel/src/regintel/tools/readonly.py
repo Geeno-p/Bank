@@ -16,7 +16,7 @@ from regintel.schemas.gap import Gap
 from regintel.schemas.mapping import ControlMapping, ObligationCoverage
 from regintel.schemas.obligation import ApplicabilityDecision, Obligation
 from regintel.settings import get_settings
-
+from regintel.kg import graph_tools as gt
 
 def _sql(q: str, *args) -> list[dict]:
     init_db()
@@ -154,8 +154,10 @@ def get_kris() -> list[dict]:
                 "JOIN (SELECT kri_id, MAX(id) AS id FROM kri_snapshots GROUP BY kri_id) m ON k.id = m.id")
 
 
-TOOLS: dict[str, Any] = {f.__name__: f for f in (overview, search_obligations, get_gaps, get_traceability,
-                                                 get_control, explain_risk, get_changes, get_runs, get_kris)}
+TOOLS: dict[str, Any] = {f.__name__: f for f in (
+    overview, search_obligations, get_gaps, get_traceability, get_control, explain_risk, get_changes,
+    get_runs, get_kris, gt.graph_schema, gt.impact_of_clause, gt.shared_controls,
+    gt.coverage_if_control_removed, gt.obligation_history, gt.ask_graph, gt.run_cypher)}
 
 
 def describe(tools: dict[str, Any] | None = None) -> str:

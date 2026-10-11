@@ -22,3 +22,4 @@ routing:
   impact_narrative: big
   evidence_test_codegen: big
   copilot: big
+  text_to_cypher: big

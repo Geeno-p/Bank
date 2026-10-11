@@ -13,8 +13,8 @@ from regintel.schemas.obligation import Obligation
 from regintel.schemas.regulation import Clause, DocVersion, Regulation
 from regintel.settings import get_settings
 
-LABELS = ["Regulation", "Policy", "DocVersion", "Clause", "Obligation", "Control",
-          "Topic", "BankEntity", "Product"]
+LABELS = ["Regulation", "Policy", "DocVersion", "Clause", "Obligation", "Control", "Topic", "BankEntity",
+          "Product", "Role", "System", "Evidence", "TestResult", "Gap", "ChangeEvent"]
 
 
 def props(m: BaseModel, exclude: set[str] | None = None) -> dict[str, Any]:
@@ -84,12 +84,17 @@ class KG:
                  rows=[props(o) for o in obls])
 
     def upsert_controls(self, ctls: list[Control]) -> None:
+        rows = [props(c) for c in ctls]
         self.run("""UNWIND $rows AS r MERGE (k:Control {id: r.id}) SET k += r
                     WITH k, r MATCH (c:Clause {id: r.clause_id}) MERGE (c)-[:DEFINES]->(k)
                     WITH k, r MATCH (p:Policy {id: r.policy_id}) MERGE (k)-[:DEFINED_IN]->(p)
                     WITH k, r UNWIND r.topics AS t
-                    MERGE (tp:Topic {id: t}) MERGE (k)-[:ABOUT]->(tp)""",
-                 rows=[props(c) for c in ctls])
+                    MERGE (tp:Topic {id: t}) MERGE (k)-[:ABOUT]->(tp)""", rows=rows)
+        self.run("""UNWIND $rows AS r MATCH (k:Control {id: r.id})
+                    FOREACH (_ IN CASE WHEN r.owner_role IS NULL THEN [] ELSE [1] END |
+                        MERGE (ro:Role {id: r.owner_role}) MERGE (k)-[:OWNED_BY]->(ro))
+                    FOREACH (s IN coalesce(r.systems, []) |
+                        MERGE (sy:System {id: s}) MERGE (k)-[:RUNS_ON]->(sy))""", rows=rows)
 
     # ---------- utilities ----------
     def clear_derived(self, *labels: str) -> None:
