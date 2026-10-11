@@ -1,0 +1,142 @@
+[
+  {
+    "area": "Extraction",
+    "metric": "Planted controls extracted",
+    "value": "42/42 (100%)",
+    "target": "\u2265 100%",
+    "ok": true
+  },
+  {
+    "area": "Extraction",
+    "metric": "Needed obligations found (keyword match)",
+    "value": "46/47 (98%)",
+    "target": "\u2265 90%",
+    "ok": true
+  },
+  {
+    "area": "Extraction",
+    "metric": "Active obligations",
+    "value": "46",
+    "target": "",
+    "ok": null
+  },
+  {
+    "area": "Grounding",
+    "metric": "Quotes matching the source text exactly",
+    "value": "89/89 (100%)",
+    "target": "\u2265 100%",
+    "ok": true
+  },
+  {
+    "area": "Mapping",
+    "metric": "Expected obligation\u2192control links found",
+    "value": "38/41 (93%)",
+    "target": "\u2265 85%",
+    "ok": true
+  },
+  {
+    "area": "Mapping",
+    "metric": "Planted coverage verdicts correct (G01, G02, G05, G06)",
+    "value": "3/4 (75%)",
+    "target": "\u2265 100%",
+    "ok": false
+  },
+  {
+    "area": "Gaps",
+    "metric": "Planted gaps detected (all 6 gap types)",
+    "value": "9/10 (90%)",
+    "target": "\u2265 100%",
+    "ok": false
+  },
+  {
+    "area": "Gaps",
+    "metric": "Clean controls wrongly flagged",
+    "value": "2 DPR-C10, KYC-C09",
+    "target": "0",
+    "ok": false
+  },
+  {
+    "area": "Gaps",
+    "metric": "Open gaps (HIGH/CRITICAL)",
+    "value": "14 (11)",
+    "target": "",
+    "ok": null
+  },
+  {
+    "area": "Change demo",
+    "metric": "KYC-C09 overdue: 2-year rule \u2192 1-year rule",
+    "value": "37/1840 (2.0%) \u2192 312/1840 (17.0%)",
+    "target": "pass \u2192 fail",
+    "ok": true
+  },
+  {
+    "area": "Change demo",
+    "metric": "Design gap raised after the amendment",
+    "value": "yes",
+    "target": "yes",
+    "ok": true
+  },
+  {
+    "area": "Remediation",
+    "metric": "HIGH/CRITICAL gaps with a plan",
+    "value": "1/11 (9%)",
+    "target": "\u2265 100%",
+    "ok": false
+  },
+  {
+    "area": "Remediation",
+    "metric": "Plans passing all automatic checks",
+    "value": "1/1 (100%)",
+    "target": "\u2265 90%",
+    "ok": true
+  },
+  {
+    "area": "Remediation",
+    "metric": "Plans fixed by self-revision / approved",
+    "value": "0 / 1",
+    "target": "",
+    "ok": null
+  },
+  {
+    "area": "Cross-regulation",
+    "metric": "Planted contradictions found (X1, X2)",
+    "value": "n/a (6D not applied yet)",
+    "target": "2/2",
+    "ok": null
+  },
+  {
+    "area": "Text-to-Cypher",
+    "metric": "Execution accuracy",
+    "value": "10/11 (91%)",
+    "target": "\u2265 75%",
+    "ok": true
+  },
+  {
+    "area": "Efficiency",
+    "metric": "Cached LLM responses (re-runs cost 0 calls)",
+    "value": "39",
+    "target": "",
+    "ok": null
+  },
+  {
+    "area": "Efficiency",
+    "metric": "Deterministic decisions (applicability, tests, gap rules, risk)",
+    "value": "91",
+    "target": "",
+    "ok": null
+  },
+  {
+    "area": "Operations",
+    "metric": "Workflow runs by status",
+    "value": "{\"COMMITTED\": 9, \"FAILED\": 1, \"REJECTED\": 1}",
+    "target": "",
+    "ok": null
+  },
+  {
+    "area": "Operations",
+    "metric": "Human review items by status",
+    "value": "{\"APPROVED\": 6, \"PENDING\": 6}",
+    "target": "",
+    "ok": null
+  }
+]

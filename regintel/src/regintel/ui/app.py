@@ -66,7 +66,18 @@ def dashboard():
     if gaps:
         st.subheader("Top risks")
         st.dataframe(gap_table(gaps[:10]), **WIDE)
-
+    with st.expander("📏 Evaluation scorecard (measured against the planted answer key)"):
+        from regintel.evals import scorecard as sc
+        if st.button("Recompute (no LLM calls)"):
+            sc.save(sc.compute())
+            st.rerun()
+        p = get_settings().data_dir / "evals" / "scorecard.json"
+        if p.exists():
+            df = pd.DataFrame(json.loads(p.read_text(encoding="utf-8")))
+            df["status"] = df.pop("ok").map({True: "✓", False: "✗"}).fillna("–")
+            st.dataframe(df, **WIDE)
+        else:
+            st.info("Click Recompute, or run: python -m regintel.evals.scorecard")
 
 def changes():
     st.title("Regulatory change intelligence")

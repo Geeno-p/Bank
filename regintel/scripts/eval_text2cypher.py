@@ -2,9 +2,10 @@
 A case passes if any returned column has exactly the same set of values as the reference's first column."""
 from rich.console import Console
 from rich.table import Table
-
+import json
 from regintel.kg.graph_tools import driver, schema_text, text_to_cypher
 from regintel.kg.guard import run_readonly
+from regintel.settings import get_settings
 
 CASES = [
     ("List controls that run on the CBS system",
@@ -55,3 +56,7 @@ for q, ref in CASES:
     t.add_row(q[:55], "[green]✓[/]" if hit else "[red]✗[/]", str(res["attempts"]), res["cypher"].replace("\n", " ")[:80])
 con.print(t)
 con.print(f"[bold]Execution accuracy:[/] {ok}/{n} = {ok / max(n, 1):.0%}")
+out = get_settings().data_dir / "evals"
+out.mkdir(parents=True, exist_ok=True)
+(out / "text2cypher.json").write_text(json.dumps({"passed": ok, "total": n, "accuracy": round(ok / max(n, 1), 3)}),
+                                      encoding="utf-8")
