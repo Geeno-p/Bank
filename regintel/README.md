@@ -2,7 +2,9 @@
 
 > ET AI Hackathon: Agentic Edition · Banking / financial regulations
 >
-> **Live demo:** [your Streamlit Cloud URL] · **Video:** [link] · **Slides:** [link]
+> **Live demo:** https://lmulobjmevdrdmwdqlnbj7.streamlit.app/copilot_page ·
+> **Video:** https://drive.google.com/file/d/1SyijVnkRGbzYOJhBWVZ73olX11DO6N6k/view ·
+> **Slides:** 
 
 RegIntel keeps a bank's regulations, obligations, controls, evidence and gaps linked in one **versioned
 knowledge graph**, maintained by **AI agents**. When a regulation changes, it finds exactly what changed,
